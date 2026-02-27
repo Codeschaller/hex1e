@@ -86,247 +86,6 @@ export const COMPETENCY_ROLL_MACRO = `
   }).render(true);
 `;
 
-export const ATTACK_ROLL_MACRO = `
-  // ===============================
-  //   MELEE ATTACK ROLL MACRO
-  //   HEXADOOR 1E (Foundry v13)
-  // ===============================
-
-  // Select icon
-  game.macros.getName("Attack Roll")?.update({
-    img: "systems/hex1e/assets/icons/icoAttack.svg"
-  });
-
-  // Ensure a token is selected
-  const token = canvas.tokens.controlled[0];
-  if (!token) return ui.notifications.warn("Select a token first.");
-  const actor = token.actor;
-
-  // Pull actor data
-  const melee = actor.system.skills?.melee?.value ?? 0;
-  const penaltyAcc = actor.system.armor?.penaltyAccuracyTotal ?? 0;
-  const bodyAcc = actor.system.body?.bodyMali?.accuracy ?? 0;
-
-  // Weapons
-  const primary = actor.system.weapons?.primary;
-  const secondary = actor.system.weapons?.secondary;
-
-  // Build dialog
-  let content = \`
-
-  <h2>Attack</h2>
-
-  <h3>Base Values</h3>
-  <p>Melee Skill: <b>\\\${melee}</b></p>
-  <p>Armor Penalty: <b>\\\${penaltyAcc}</b></p>
-  <p>Body Mali: <b>\\\${bodyAcc}</b></p>
-
-  <h3>Choose Weapon</h3>
-  <select id="weaponChoice">
-
-    <option value="primary">
-      Primary: \\\${primary?.name || "None"}
-      (Type: \\\${primary?.type || "?"}, Acc: \\\${primary?.accuracy ?? 0},
-       \\\${primary?.damageDieCount ?? 1}D\\\${primary?.damageDie || 6} + \\\${primary?.damageBonus ?? 0})
-    </option>
-
-    <option value="secondary">
-      Secondary: \\\${secondary?.name || "None"}
-      (Type: \\\${secondary?.type || "?"}, Acc: \\\${secondary?.accuracy ?? 0},
-       \\\${secondary?.damageDieCount ?? 1}D\\\${secondary?.damageDie || 6} + \\\${secondary?.damageBonus ?? 0})
-    </option>
-
-    <option value="unarmed">
-      Unarmed Strike
-      (Type: melee, Acc: 0,
-       1D6 + \\\${actor.system.skills?.strength?.us?.value ?? 0})
-    </option>
-
-  </select>
-
-  <p><strong>Range Types:</strong></p>
-  <ul>
-    <li>melee → 0 m</li>
-    <li>close → 5–10 m</li>
-    <li>middle → 10–25 m</li>
-    <li>wide → 25–35 m</li>
-    <li>edge → 35–60 m</li>
-  </ul>
-
-  <h3>Situational Modifiers</h3>
-  <p>Cover Modifier:</p>
-  <select id="cover">
-    <option value="0">No Cover (0)</option>
-    <option value="10">Half Cover (-10)</option>
-    <option value="25">Full Cover (-25)</option>
-  </select>
-
-  <p>Bodyzone Modifier:</p>
-  <select id="bodyzone">
-    <option value="0">Body (0)</option>
-    <option value="25">Head (-25)</option>
-    <option value="10">Right Arm (-10)</option>
-    <option value="10">Left Arm (-10)</option>
-    <option value="10">Right Leg (-10)</option>
-    <option value="10">Left Leg (-10)</option>
-  </select>
-
-  <p>Additional Modifier:</p>
-  <input type="number" id="modifier" value="0" />
-  \`;
-
-  new Dialog({
-    title: "HEXADOOR Melee Attack",
-    content,
-    buttons: {
-      roll: {
-        label: "Roll",
-        callback: async (html) => {
-
-          const choice = html.find("#weaponChoice").val();
-          const cover = Number(html.find("#cover").val());
-          const bodyzone = Number(html.find("#bodyzone").val());
-          const modifier = Number(html.find("#modifier").val());
-
-          const weapon = choice === "primary" ? primary : secondary;
-          const weaponAcc = weapon?.accuracy ?? 0;
-
-          // ===============================
-          // UNARMED STRIKE HANDLING
-          // ===============================
-          if (choice === "unarmed") {
-
-            const us = actor.system.skills?.strength?.us?.value ?? 0;
-
-            const weapon = {
-              name: "Unarmed",
-              type: "melee",
-              accuracy: 0,
-              damageDieCount: 1,
-              damageDie: 6,
-              damageBonus: us,
-              properties: "Unarmed Strike"
-            };
-
-            const weaponAcc = 0;
-            const type = "melee";
-            const range = "0 Meter";
-
-            const target =
-              (melee - penaltyAcc - bodyAcc) +
-              weaponAcc -
-              cover -
-              bodyzone +
-              modifier;
-
-            const roll = await new Roll("1d100").roll({ async: true });
-            const result = roll.total;
-
-            let outcome = "";
-            if (result <= 5) outcome = "🔥 <b>Critical Success</b>";
-            else if (result <= target / 5) outcome = "💥 <b>Extreme Success</b>";
-            else if (result <= target / 2) outcome = "✨ <b>Strong Success</b>";
-            else if (result <= target) outcome = "✔️ <b>Success</b>";
-            else if (result >= 95) outcome = "💀 <b>Critical Failure</b>";
-            else outcome = "❌ <b>Failure</b>";
-
-            roll.toMessage({
-              speaker: ChatMessage.getSpeaker({ token }),
-              flavor: \`
-
-  <h2>Unarmed Attack Roll</h2>
-
-        <p><strong>Weapon:</strong> Unarmed</p>
-        <p><strong>Weapon Type:</strong> melee</p>
-        <p><strong>Range:</strong> 0 Meter</p>
-
-        <p><strong>Melee Skill:</strong> \\\${melee}</p>
-        <p><strong>Armor Penalty:</strong> -\\\${penaltyAcc}</p>
-        <p><strong>Body Mali:</strong> -\\\${bodyAcc}</p>
-        <p><strong>Weapon Accuracy:</strong> +0</p>
-        <p><strong>Cover:</strong> -\\\${cover}</p>
-        <p><strong>Bodyzone:</strong> -\\\${bodyzone}</p>
-        <p><strong>Modifier:</strong> \\\${modifier >= 0 ? "+" + modifier : modifier}</p>
-
-        <hr>
-
-        <p><strong>Final Target:</strong> \\\${target}</p>
-        <p><strong>Roll:</strong> \\\${result}</p>
-
-        <p>\\\${outcome}</p>
-      \`
-            });
-
-            return;
-          }
-
-          // ===============================
-          //   NEW: Weapon Type → Range
-          // ===============================
-          const type = weapon?.type ?? "unknown";
-
-          let range = "—";
-          switch (type) {
-            case "melee":  range = "0 Meter"; break;
-            case "close":  range = "5–10 Meter"; break;
-            case "middle": range = "10–25 Meter"; break;
-            case "wide":   range = "25–35 Meter"; break;
-          }
-
-          // Final target
-          const target =
-            (melee - penaltyAcc - bodyAcc) +
-            weaponAcc -
-            cover -
-            bodyzone +
-            modifier;
-
-          // Roll d100
-          const roll = await new Roll("1d100").roll({async: true});
-          const result = roll.total;
-
-          // Determine success level
-          let outcome = "";
-          if (result <= 5) outcome = "🔥 <b>Critical Success</b>";
-          else if (result <= target / 5) outcome = "💥 <b>Extreme Success</b>";
-          else if (result <= target / 2) outcome = "✨ <b>Strong Success</b>";
-          else if (result <= target) outcome = "✔️ <b>Success</b>";
-          else if (result >= 95) outcome = "💀 <b>Critical Failure</b>";
-          else outcome = "❌ <b>Failure</b>";
-
-          // Send to chat
-          roll.toMessage({
-            speaker: ChatMessage.getSpeaker({ token }),
-            flavor: \`
-              <h2>Attack Roll</h2>
-
-              <p><strong>Weapon:</strong> \\\${weapon?.name || "None"}</p>
-              <p><strong>Weapon Type:</strong> \\\${type}</p>
-              <p><strong>Range:</strong> \\\${range}</p>
-
-              <p><strong>Melee Skill:</strong> \\\${melee}</p>
-              <p><strong>Armor Penalty:</strong> -\\\${penaltyAcc}</p>
-              <p><strong>Body Mali:</strong> -\\\${bodyAcc}</p>
-              <p><strong>Weapon Accuracy:</strong> +\\\${weaponAcc}</p>
-              <p><strong>Cover:</strong> -\\\${cover}</p>
-              <p><strong>Bodyzone:</strong> -\\\${bodyzone}</p>
-              <p><strong>Modifier:</strong> \\\${modifier >= 0 ? "+" + modifier : modifier}</p>
-
-              <hr>
-
-              <p><strong>Final Target:</strong> \\\${target}</p>
-              <p><strong>Roll:</strong> \\\${result}</p>
-
-              <p>\\\${outcome}</p>
-            \`
-          });
-        }
-      }
-    }
-  }
-}).render(true);
-`;
-
 export const DAMAGE_ROLL_MACRO = `
 // ===========================================
 // HEXADOOR 1E – DAMAGE ROLLER (SYSTEM.WEAPONS)
@@ -432,6 +191,258 @@ new Dialog({
             <p><strong>Enemy Armor:</strong> -\${enemyArmor}</p>
             <p><strong>Type:</strong> \${weapon.type}</p>
             <p><strong>Properties:</strong> \${weapon.properties || "None"}</p>
+          \`
+        });
+      }
+    },
+    cancel: { label: "Cancel" }
+  }
+}).render(true);
+`;
+
+export const ATTACK_ROLL_MACRO = `// ===============================
+// ATTACK ROLL MACRO
+// HEXADOOR 1E (Foundry v13)
+// ===============================
+
+// Select icon
+game.macros.getName("Attack Roll")?.update({
+  img: "systems/hex1e/assets/icons/icoAttack.svg"
+});
+
+// Ensure a token is selected
+const token = canvas.tokens.controlled[0];
+if (!token) return ui.notifications.warn("Select a token first.");
+const actor = token.actor;
+
+// Pull actor data
+const melee = actor.system.skills?.melee?.value ?? 0;
+const ranged = actor.system.skills?.ranged?.value ?? 0;
+
+const penaltyAcc = actor.system.armor?.penaltyAccuracyTotal ?? 0;
+const bodyAcc = actor.system.body?.bodyMali?.accuracy ?? 0;
+
+// Weapons
+const primary = actor.system.weapons?.primary;
+const secondary = actor.system.weapons?.secondary;
+
+// Build dialog
+let content = \`
+
+<h2>Attack</h2>
+
+<h3>Base Values</h3>
+<p>Melee Skill: <b>\${melee}</b></p>
+<p>Ranged Skill: <b>\${ranged}</b></p>
+<p>Armor Penalty: <b>\${penaltyAcc}</b></p>
+<p>Body Mali: <b>\${bodyAcc}</b></p>
+
+<h3>Choose Weapon</h3>
+<select id="weaponChoice">
+
+  <option value="primary">
+    Primary: \${primary?.name || "None"}
+    (Type: \${primary?.type || "?"}, Acc: \${primary?.accuracy ?? 0},
+     \${primary?.damageDieCount ?? 1}D\${primary?.damageDie || 6} + \${primary?.damageBonus ?? 0})
+  </option>
+
+  <option value="secondary">
+    Secondary: \${secondary?.name || "None"}
+    (Type: \${secondary?.type || "?"}, Acc: \${secondary?.accuracy ?? 0},
+     \${secondary?.damageDieCount ?? 1}D\${secondary?.damageDie || 6} + \${secondary?.damageBonus ?? 0})
+  </option>
+
+  <option value="unarmed">
+    Unarmed Strike
+    (Type: melee, Acc: 0,
+     1D6 + \${actor.system.skills?.strength?.us?.value ?? 0})
+  </option>
+
+</select>
+
+<p><strong>Range Types:</strong></p>
+<ul>
+  <li>melee → 0 m</li>
+  <li>close → 5–10 m</li>
+  <li>middle → 10–25 m</li>
+  <li>wide → 25–35 m</li>
+  <li>edge → 35–60 m</li>
+</ul>
+
+<h3>Situational Modifiers</h3>
+
+<p>Cover Modifier:</p>
+<select id="cover">
+  <option value="0">No Cover (0)</option>
+  <option value="10">Half Cover (-10)</option>
+  <option value="25">Full Cover (-25)</option>
+</select>
+
+<p>Bodyzone Modifier:</p>
+<select id="bodyzone">
+  <option value="0">Body (0)</option>
+  <option value="25">Head (-25)</option>
+  <option value="10">Right Arm (-10)</option>
+  <option value="10">Left Arm (-10)</option>
+  <option value="10">Right Leg (-10)</option>
+  <option value="10">Left Leg (-10)</option>
+</select>
+
+<p>Additional Modifier:</p>
+<input type="number" id="modifier" value="0" />
+
+\`;
+
+new Dialog({
+  title: "HEXADOOR Attack",
+  content,
+  buttons: {
+    roll: {
+      label: "Roll",
+      callback: async (html) => {
+
+        const choice = html.find("#weaponChoice").val();
+        const cover = Number(html.find("#cover").val());
+        const bodyzone = Number(html.find("#bodyzone").val());
+        const modifier = Number(html.find("#modifier").val());
+
+        // ===============================
+        // UNARMED STRIKE (always melee)
+        // ===============================
+        if (choice === "unarmed") {
+
+          const target =
+            (melee - penaltyAcc - bodyAcc) +
+            0 -
+            cover -
+            bodyzone +
+            modifier;
+
+          const roll = await new Roll("1d100").roll({ async: true });
+          const result = roll.total;
+
+          let outcome = "";
+          if (result <= 5) outcome = "🔥 <b>Critical Success</b>";
+          else if (result <= target / 5) outcome = "💥 <b>Extreme Success</b>";
+          else if (result <= target / 2) outcome = "✨ <b>Strong Success</b>";
+          else if (result <= target) outcome = "✔️ <b>Success</b>";
+          else if (result >= 95) outcome = "💀 <b>Critical Failure</b>";
+          else outcome = "❌ <b>Failure</b>";
+
+          roll.toMessage({
+            speaker: ChatMessage.getSpeaker({ token }),
+            flavor: \`
+              <h2>Unarmed Attack Roll</h2>
+
+              <p><strong>Weapon:</strong> Unarmed</p>
+              <p><strong>Combat Type:</strong> Melee Combat</p>
+              <p><strong>Range:</strong> 0 Meter</p>
+
+              <p><strong>Melee Skill:</strong> \${melee}</p>
+              <p><strong>Armor Penalty:</strong> -\${penaltyAcc}</p>
+              <p><strong>Body Mali:</strong> -\${bodyAcc}</p>
+              <p><strong>Weapon Accuracy:</strong> +0</p>
+              <p><strong>Cover:</strong> -\${cover}</p>
+              <p><strong>Bodyzone:</strong> -\${bodyzone}</p>
+              <p><strong>Modifier:</strong> \${modifier >= 0 ? "+" + modifier : modifier}</p>
+
+              <hr>
+
+              <p><strong>Final Target:</strong> \${target}</p>
+              <p><strong>Roll:</strong> \${result}</p>
+
+              <p>\${outcome}</p>
+
+              <hr>
+              <h3>Calculation</h3>
+              <p>(Melee \${melee} - Armor \${penaltyAcc} - Body \${bodyAcc}) + Accuracy 0 - Cover \${cover} - Bodyzone \${bodyzone} + Modifier \${modifier}</p>
+
+              <p><strong>Melee Skill:</strong> \${melee}</p>
+              <p><strong>Ranged Skill:</strong> \${ranged}</p>
+            \`
+          });
+
+          return;
+        }
+
+        // ===============================
+        // WEAPON ATTACK
+        // ===============================
+        const weapon = choice === "primary" ? primary : secondary;
+
+        if (!weapon) {
+          return ui.notifications.warn(\`No \${choice} weapon equipped.\`);
+        }
+
+        const weaponAcc = weapon.accuracy ?? 0;
+
+        // Range by type
+        let range = "—";
+        switch (weapon.type) {
+          case "melee":  range = "0 Meter"; break;
+          case "close":  range = "5–10 Meter"; break;
+          case "middle": range = "10–25 Meter"; break;
+          case "wide":   range = "25–35 Meter"; break;
+          case "edge":   range = "35–60 Meter"; break;
+        }
+
+        // Determine combat type
+        let combatSkill = melee;
+        if (weapon.type === "melee") {
+          combatSkill = melee;
+        } else if (["close", "middle", "wide", "edge"].includes(weapon.type)) {
+          combatSkill = ranged;
+        }
+
+        // Final target
+        const target =
+          (combatSkill - penaltyAcc - bodyAcc) +
+          weaponAcc -
+          cover -
+          bodyzone +
+          modifier;
+
+        const roll = await new Roll("1d100").roll({ async: true });
+        const result = roll.total;
+
+        let outcome = "";
+        if (result <= 5) outcome = "🔥 <b>Critical Success</b>";
+        else if (result <= target / 5) outcome = "💥 <b>Extreme Success</b>";
+        else if (result <= target / 2) outcome = "✨ <b>Strong Success</b>";
+        else if (result <= target) outcome = "✔️ <b>Success</b>";
+        else if (result >= 95) outcome = "💀 <b>Critical Failure</b>";
+        else outcome = "❌ <b>Failure</b>";
+
+        roll.toMessage({
+          speaker: ChatMessage.getSpeaker({ token }),
+          flavor: \`
+            <h2>Attack Roll</h2>
+
+            <p><strong>Weapon:</strong> \${weapon.name}</p>
+            <p><strong>Weapon Type:</strong> \${weapon.type}</p>
+            <p><strong>Combat Type:</strong> \${combatSkill === melee ? "Melee Combat" : "Ranged Combat"}</p>
+            <p><strong>Range:</strong> \${range}</p>
+
+            <p><strong>Melee Skill:</strong> \${melee}</p>
+            <p><strong>Ranged Skill:</strong> \${ranged}</p>
+            <p><strong>Skill Used:</strong> \${combatSkill}</p>
+            <p><strong>Armor Penalty:</strong> -\${penaltyAcc}</p>
+            <p><strong>Body Mali:</strong> -\${bodyAcc}</p>
+            <p><strong>Weapon Accuracy:</strong> +\${weaponAcc}</p>
+            <p><strong>Cover:</strong> -\${cover}</p>
+            <p><strong>Bodyzone:</strong> -\${bodyzone}</p>
+            <p><strong>Modifier:</strong> \${modifier >= 0 ? "+" + modifier : modifier}</p>
+
+            <hr>
+
+            <p><strong>Final Target:</strong> \${target}</p>
+            <p><strong>Roll:</strong> \${result}</p>
+
+            <p>\${outcome}</p>
+
+            <hr>
+            <h3>Calculation</h3>
+            <p>(\${combatSkill === melee ? "Melee" : "Ranged"} \${combatSkill} - Armor \${penaltyAcc} - Body \${bodyAcc}) + Accuracy \${weaponAcc} - Cover \${cover} - Bodyzone \${bodyzone} + Modifier \${modifier}</p>
           \`
         });
       }

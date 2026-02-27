@@ -22,6 +22,10 @@ Hooks.once("init", () => {
   });
 });
 
+// ======================================================
+//  VERSIONING HELPER - Macro creation and updates
+// ======================================================
+
 Hooks.once("ready", async function () {
   // =====================================
   // COMPETENCY ROLL MACRO (Hotbar Slot 0)
@@ -37,6 +41,12 @@ Hooks.once("ready", async function () {
       img: COMPETENCY_ICON,
       scope: "global",
       command: COMPETENCY_ROLL_MACRO,
+    });
+    // Set permissions when the macro is created
+    await competencyMacro.update({
+      ownership: {
+        default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER,
+      },
     });
   }
 
@@ -56,6 +66,11 @@ Hooks.once("ready", async function () {
       img: ATTACK_ICON,
       scope: "global",
       command: ATTACK_ROLL_MACRO,
+    }); // Set permissions when the macro is created
+    await attackMacro.update({
+      ownership: {
+        default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER,
+      },
     });
   }
 
@@ -76,7 +91,15 @@ Hooks.once("ready", async function () {
       scope: "global",
       command: DAMAGE_ROLL_MACRO,
     });
+
+    // Set permissions when the macro is created
+    await damageMacro.update({
+      ownership: {
+        default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER,
+      },
+    });
   }
 
+  // Assign to the current user’s hotbar slot 3
   await game.user.assignHotbarMacro(damageMacro, 3);
 });

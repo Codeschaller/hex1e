@@ -534,3 +534,5 @@ const dieType = `d${weapon.damageDie || 6}`;
 
 }
 }).render(true);
+
+change

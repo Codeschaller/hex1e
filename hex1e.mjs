@@ -1,5 +1,10 @@
 import { HeroDataModel } from "./module/data-models/hero-data.js";
 import { HeroSheet } from "./module/documents/hero-sheet.js";
+import {
+  COMPETENCY_ROLL_MACRO,
+  ATTACK_ROLL_MACRO,
+  DAMAGE_ROLL_MACRO,
+} from "./module/helpers/macros/hotbar-macros.js";
 
 Hooks.once("init", () => {
   // register data model
@@ -17,116 +22,61 @@ Hooks.once("init", () => {
   });
 });
 
-/**
- * HEXADOOR 1E — Forced Hotbar Macro Registration
- * Hotbar Slot 1 will ALWAYS contain the Competency Roll macro.
- */
-
 Hooks.once("ready", async function () {
-  const MACRO_NAME = "Competency Roll";
-  const ICON_PATH = "systems/hex1e/assets/icons/icoSkill.svg";
+  // =====================================
+  // COMPETENCY ROLL MACRO (Hotbar Slot 0)
+  // =====================================
+  const COMPETENCY_MACRO_NAME = "Competency Roll";
+  const COMPETENCY_ICON = "systems/hex1e/assets/icons/icoSkill.svg";
 
-  // Ensure macro exists
-  let macro = game.macros.getName(MACRO_NAME);
-  if (!macro) {
-    macro = await Macro.create({
-      name: MACRO_NAME,
+  let competencyMacro = game.macros.getName(COMPETENCY_MACRO_NAME);
+  if (!competencyMacro) {
+    competencyMacro = await Macro.create({
+      name: COMPETENCY_MACRO_NAME,
       type: "script",
-      img: ICON_PATH,
+      img: COMPETENCY_ICON,
       scope: "global",
       command: COMPETENCY_ROLL_MACRO,
     });
   }
 
-  // Force assign to hotbar slot 1
-  const user = game.user;
-  await user.assignHotbarMacro(macro, 1);
-});
+  await game.user.assignHotbarMacro(competencyMacro, 1);
 
-/**
- * Macro code injected into the Macro entity.
- */
-const COMPETENCY_ROLL_MACRO = `
-  // Select icon
-  game.macros.getName("Competency Roll")?.update({
-    img: "systems/hex1e/assets/icons/icoSkill.svg"
-  });
+  // =====================================
+  // ATTACK ROLL MACRO (Hotbar Slot 2)
+  // =====================================
+  const ATTACK_MACRO_NAME = "Attack Roll";
+  const ATTACK_ICON = "systems/hex1e/assets/icons/icoAttack.svg";
 
-  // Ensure a token is selected
-  const token = canvas.tokens.controlled[0];
-  if (!token) return ui.notifications.warn("Select a token first.");
-  const actor = token.actor;
-
-  // Pull skills dynamically
-  const skills = actor.system.skills;
-
-  // Build list of rollable options
-  const options = Object.entries(skills).map(([key, data]) => {
-    return {
-      key,
-      label: key.charAt(0).toUpperCase() + key.slice(1),
-      value: data.value
-    };
-  });
-
-  // Build dialog HTML
-  let content = \`
-  <p>Select a competency to roll:</p>
-  <select id="competency-select">\`;
-
-  for (const opt of options) {
-    content += \`<option value="\${opt.key}">\${opt.label}</option>\`;
+  let attackMacro = game.macros.getName(ATTACK_MACRO_NAME);
+  if (!attackMacro) {
+    attackMacro = await Macro.create({
+      name: ATTACK_MACRO_NAME,
+      type: "script",
+      img: ATTACK_ICON,
+      scope: "global",
+      command: ATTACK_ROLL_MACRO,
+    });
   }
 
-  content += \`</select>
-  <p>Modifier (add or subtract):</p>
-  <input type="number" id="competency-mod" value="0" />
-  \`;
+  await game.user.assignHotbarMacro(attackMacro, 2);
 
-  // Show dialog
-  new Dialog({
-    title: "HEXADOOR Competency Roll",
-    content,
-    buttons: {
-      roll: {
-        label: "Roll",
-        callback: async (html) => {
-          const key = html.find("#competency-select").val();
-          const mod = Number(html.find("#competency-mod").val()) || 0;
+  // =====================================
+  // DAMAGE ROLL MACRO (Hotbar Slot 3)
+  // =====================================
+  const DAMAGE_MACRO_NAME = "Damage Roll";
+  const DAMAGE_ICON = "systems/hex1e/assets/icons/icoDamage.svg";
 
-          const base = skills[key].value;
-          const skill = base + mod;
+  let damageMacro = game.macros.getName(DAMAGE_MACRO_NAME);
+  if (!damageMacro) {
+    damageMacro = await Macro.create({
+      name: DAMAGE_MACRO_NAME,
+      type: "script",
+      img: DAMAGE_ICON,
+      scope: "global",
+      command: DAMAGE_ROLL_MACRO,
+    });
+  }
 
-          // Roll d100
-          const roll = await new Roll("1d100").roll({async: true});
-          const result = roll.total;
-
-          // Determine success level
-          let outcome = "";
-          if (result <= 5) outcome = "🔥 <b>Critical Success</b>";
-          else if (result <= skill / 5) outcome = "💥 <b>Extreme Success</b>";
-          else if (result <= skill / 2) outcome = "✨ <b>Strong Success</b>";
-          else if (result <= skill) outcome = "✔️ <b>Success</b>";
-          else if (result > 95) outcome = "💀 <b>Critical Failure</b>";
-          else outcome = "❌ <b>Failure</b>";
-
-          const label = key.charAt(0).toUpperCase() + key.slice(1);
-
-          // Send to chat
-          roll.toMessage({
-            speaker: ChatMessage.getSpeaker({ token }),
-            flavor: \`
-              <h2>\${label} Roll</h2>
-              <p><strong>Base Value:</strong> \${base}</p>
-              <p><strong>Modifier:</strong> \${mod >= 0 ? "+" + mod : mod}</p>
-              <p><strong>Final Skill:</strong> \${skill}</p>
-              <hr>
-              <p><strong>Result:</strong> \${result}</p>
-              <p>\${outcome}</p>
-            \`
-          });
-        }
-      }
-    }
-  }).render(true);
-`;
+  await game.user.assignHotbarMacro(damageMacro, 3);
+});

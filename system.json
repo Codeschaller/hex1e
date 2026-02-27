@@ -1,0 +1,87 @@
+{
+  "id": "hex1e",
+  "type": "system",
+  "title": "HEXADOOR 1E",
+  "description": "A custom tabletop RPG system created by CJYardbanger.",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "manifest": "system.json",
+  "download": "https://example.com/hex1e.zip",
+  "authors": [
+    {
+      "name": "CJYardbanger",
+      "url": "https://www.hexadoor.de",
+      "email": "info@hexadoor.de",
+      "discord": "hexadoor"
+    }
+  ],
+  "esmodules": [
+    "hex1e.mjs"
+  ],
+  "styles": [
+    "styles/system.css",
+    "styles/sheets.css"
+  ],
+  "actorTypes": [
+    "hero",
+    "enemy",
+    "npc"
+  ],
+  "itemTypes": [
+    "weapon",
+    "armor"
+  ],
+  "models": {
+    "Actor": {
+      "hero": "module/data-models/hero-data.js",
+      "enemy": "module/data-models/actor-data.js",
+      "npc": "module/data-models/actor-data.js"
+    },
+    "Item": {
+      "weapon": "module/data-models/item-data.js",
+      "armor": "module/data-models/item-data.js"
+    }
+  },
+  "packs": [
+    {
+      "name": "monsters",
+      "label": "Monsters",
+      "path": "packs/monsters",
+      "type": "Actor",
+      "system": "hex1e"
+    },
+    {
+      "name": "items",
+      "label": "Items",
+      "path": "packs/items",
+      "type": "Item",
+      "system": "hex1e"
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
+  ],
+  "initiative": "1d100",
+  "grid": {
+    "type": 4,
+    "distance": 2.5,
+    "units": "Meter"
+  },
+  "background": "assets/background/JPG_Hexadoor_Logo.jpg",
+  "banner": "assets/ui/PNG_Hexadoor_Logo.png",
+  "icon": "assets/icons/PNG_Hexadoor_Logo.png",
+  "primaryTokenAttribute": "resources.health",
+  "secondaryTokenAttribute": "resources.movement"
+}

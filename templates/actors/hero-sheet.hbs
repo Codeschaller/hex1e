@@ -1,0 +1,670 @@
+{{! ==========================================================
+HERO SHEET (Foundry VTT v13)
+Layout:
+- Left: Character image
+- Right: Basic information
+- Below: Attribute bar in a single row
+========================================================== }}
+
+<form class="hero-sheet" autocomplete="off">
+
+  {{! ======================================================
+  HEADER AREA: IMAGE (LEFT) + BASIC INFO (RIGHT)
+  ====================================================== }}
+  <section class="header-flex">
+
+    {{! LEFT COLUMN: Character image }}
+    <div class="profile-wrapper">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    </div>
+
+    {{! MIDDLE COLUMN: Basic information }}
+    <div class="basic-info">
+
+      <h1>
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name" />
+      </h1>
+
+      <div class="grid-2col">
+
+        <div class="form-group">
+          <label>Player Name</label>
+          <input type="text" name="system.playerName" value="{{system.playerName}}" />
+        </div>
+
+        <div class="form-group">
+          <label>Character Name</label>
+          <input type="text" name="system.characterName" value="{{system.characterName}}" />
+        </div>
+
+        <div class="form-group">
+          <label>Level</label>
+          <input type="number" name="system.level" value="{{system.level}}" min="1" />
+        </div>
+
+        <div class="form-group">
+          <label>Health</label>
+          <div class="health-values">
+            <input type="number" name="system.health.value" value="{{system.health.value}}" min="0" />
+            <span class="separator">/</span>
+            <input type="number" name="system.health.max" value="{{system.health.max}}" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    {{! RIGHT COLUMN: Race and Class Section }}
+
+    <div class="body-schema">
+
+      <h2>BODY ZONES / DAMAGE</h2>
+
+      <div class="body-grid">
+
+        <!-- HEAD -->
+        <div class="body-part">
+          <div class="body-part-title">Head</div>
+
+          <div class="damage-row">
+            <label>Wound/Tear:</label>
+            <div class="checkboxes">
+              <input type="checkbox" name="system.body.head.wound.0" {{checked (lookup system.body.head.wound 0)}} />
+              <input type="checkbox" name="system.body.head.wound.1" {{checked (lookup system.body.head.wound 1)}} />
+              <input type="checkbox" name="system.body.head.wound.2" {{checked (lookup system.body.head.wound 2)}} />
+            </div>
+          </div>
+
+          <div class="damage-row">
+            <label>Destroyed:</label>
+            <input type="checkbox" name="system.body.head.destroyed" {{checked system.body.head.destroyed}} />
+          </div>
+        </div>
+
+        <!-- BODY MALI -->
+        <div class="body-part">
+          <div class="body-part-title">Body Mali</div>
+
+          <div class="damage-row">
+            <label>Accuracy:</label>
+            <input type="number" name="system.body.bodyMali.accuracy" value="{{system.body.bodyMali.accuracy}}" />
+          </div>
+
+          <div class="damage-row">
+            <label>Agility:</label>
+            <input type="number" name="system.body.bodyMali.agility" value="{{system.body.bodyMali.agility}}" />
+          </div>
+        </div>
+
+        <!-- LEFT ARM -->
+        <div class="body-part">
+          <div class="body-part-title">Left Arm</div>
+
+          <div class="damage-row">
+            <label>Wound/Tear:</label>
+            <div class="checkboxes">
+              <input type="checkbox" name="system.body.leftArm.wound.0" {{checked (lookup system.body.leftArm.wound
+                0)}} />
+              <input type="checkbox" name="system.body.leftArm.wound.1" {{checked (lookup system.body.leftArm.wound
+                1)}} />
+              <input type="checkbox" name="system.body.leftArm.wound.2" {{checked (lookup system.body.leftArm.wound
+                2)}} />
+            </div>
+          </div>
+
+          <div class="damage-row">
+            <label>Destroyed:</label>
+            <input type="checkbox" name="system.body.leftArm.destroyed" {{checked system.body.leftArm.destroyed}} />
+          </div>
+        </div>
+
+        <!-- RIGHT ARM -->
+        <div class="body-part">
+          <div class="body-part-title">Right Arm</div>
+
+          <div class="damage-row">
+            <label>Wound/Tear:</label>
+            <div class="checkboxes">
+              <input type="checkbox" name="system.body.rightArm.wound.0" {{checked (lookup system.body.rightArm.wound
+                0)}} />
+              <input type="checkbox" name="system.body.rightArm.wound.1" {{checked (lookup system.body.rightArm.wound
+                1)}} />
+              <input type="checkbox" name="system.body.rightArm.wound.2" {{checked (lookup system.body.rightArm.wound
+                2)}} />
+            </div>
+          </div>
+
+          <div class="damage-row">
+            <label>Destroyed:</label>
+            <input type="checkbox" name="system.body.rightArm.destroyed" {{checked system.body.rightArm.destroyed}} />
+          </div>
+        </div>
+
+        <!-- LEFT LEG -->
+        <div class="body-part">
+          <div class="body-part-title">Left Leg</div>
+
+          <div class="damage-row">
+            <label>Wound/Tear:</label>
+            <div class="checkboxes">
+              <input type="checkbox" name="system.body.leftLeg.wound.0" {{checked (lookup system.body.leftLeg.wound
+                0)}} />
+              <input type="checkbox" name="system.body.leftLeg.wound.1" {{checked (lookup system.body.leftLeg.wound
+                1)}} />
+              <input type="checkbox" name="system.body.leftLeg.wound.2" {{checked (lookup system.body.leftLeg.wound
+                2)}} />
+            </div>
+          </div>
+
+          <div class="damage-row">
+            <label>Destroyed:</label>
+            <input type="checkbox" name="system.body.leftLeg.destroyed" {{checked system.body.leftLeg.destroyed}} />
+          </div>
+        </div>
+
+        <!-- RIGHT LEG -->
+        <div class="body-part">
+          <div class="body-part-title">Right Leg</div>
+
+          <div class="damage-row">
+            <label>Wound/Tear:</label>
+            <div class="checkboxes">
+              <input type="checkbox" name="system.body.rightLeg.wound.0" {{checked (lookup system.body.rightLeg.wound
+                0)}} />
+              <input type="checkbox" name="system.body.rightLeg.wound.1" {{checked (lookup system.body.rightLeg.wound
+                1)}} />
+              <input type="checkbox" name="system.body.rightLeg.wound.2" {{checked (lookup system.body.rightLeg.wound
+                2)}} />
+            </div>
+          </div>
+
+          <div class="damage-row">
+            <label>Destroyed:</label>
+            <input type="checkbox" name="system.body.rightLeg.destroyed" {{checked system.body.rightLeg.destroyed}} />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  {{! ======================================================
+  ATTRIBUTE BAR (ONE HORIZONTAL ROW)
+  ====================================================== }}
+  <section class="attribute-bar">
+
+    <div class="attribute">
+      <label>Body</label>
+      <input type="number" name="system.attributes.body" value="{{system.attributes.body}}" />
+    </div>
+
+    <div class="attribute">
+      <label>Agility</label>
+      <input type="number" name="system.attributes.agility" value="{{system.attributes.agility}}" />
+    </div>
+
+    <div class="attribute">
+      <label>Accuracy</label>
+      <input type="number" name="system.attributes.accuracy" value="{{system.attributes.accuracy}}" />
+    </div>
+
+    <div class="attribute">
+      <label>Knowledge</label>
+      <input type="number" name="system.attributes.knowledge" value="{{system.attributes.knowledge}}" />
+    </div>
+
+    <div class="attribute">
+      <label>Tech</label>
+      <input type="number" name="system.attributes.tech" value="{{system.attributes.tech}}" />
+    </div>
+
+    <div class="attribute">
+      <label>Social</label>
+      <input type="number" name="system.attributes.social" value="{{system.attributes.social}}" />
+    </div>
+
+  </section>
+
+  {{! ======================================================
+  TABS UNDER ATTRIBUTE BAR
+  Three tabs: Skills, Equipment, Notes
+  ====================================================== }}
+
+  <nav class="sheet-tabs" data-group="primary-tabs">
+    <a class="item" data-tab="skills">Skills</a>
+    <a class="item" data-tab="battle">Battle</a>
+    <a class="item" data-tab="inventory">Inventory</a>
+    <a class="item" data-tab="characterinfo">Character Info</a>
+    <a class="item" data-tab="notes">Notes</a>
+  </nav>
+
+  <section class="sheet-body">
+
+    {{! ===========================
+    TAB: SKILLS
+    =========================== }}
+    <div class="tab" data-group="primary-tabs" data-tab="skills">
+      <section class="competencies">
+
+        <h2>Competencies</h2>
+
+        <div class="competency-grid">
+
+          {{! BODY }}
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.strength.checked" {{checked system.skills.strength.checked}} />
+            <label>Strength (Body)</label>
+            <input type="number" name="system.skills.strength.value" value="{{system.skills.strength.value}}" min="0"
+              max="100" />
+            <span class="competency-item">/20 =
+              <input type="number" name="system.skills.strength.us.value" value="{{system.skills.strength.us.value}}"
+                min="0" max="100" />US</span>
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.endurance.checked" {{checked system.skills.endurance.checked}} />
+            <label>Endurance (Body)</label>
+            <input type="number" name="system.skills.endurance.value" value="{{system.skills.endurance.value}}" min="0"
+              max="100" />
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.intimidation.checked" {{checked
+              system.skills.intimidation.checked}} />
+            <label>Intimidation (Body)</label>
+            <input type="number" name="system.skills.intimidation.value" value="{{system.skills.intimidation.value}}"
+              min="0" max="100" />
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.melee.checked" {{checked system.skills.melee.checked}} />
+            <label>Melee Combat (Body | Agility)</label>
+            <input type="number" name="system.skills.melee.value" value="{{system.skills.melee.value}}" min="0"
+              max="100" />
+          </div>
+
+          {{! AGILITY }}
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.dodge.checked" {{checked system.skills.dodge.checked}} />
+            <label>Dodge (Agility)</label>
+            <input type="number" name="system.skills.dodge.value" value="{{system.skills.dodge.value}}" min="0"
+              max="100" />
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.stealth.checked" {{checked system.skills.stealth.checked}} />
+            <label>Stealth (Agility)</label>
+            <input type="number" name="system.skills.stealth.value" value="{{system.skills.stealth.value}}" min="0"
+              max="100" />
+          </div>
+
+          {{! ACCURACY }}
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.ranged.checked" {{checked system.skills.ranged.checked}} />
+            <label>Ranged Combat (Accuracy)</label>
+            <input type="number" name="system.skills.ranged.value" value="{{system.skills.ranged.value}}" min="0"
+              max="100" />
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.investigation.checked" {{checked
+              system.skills.investigation.checked}} />
+            <label>Investigation (Accuracy)</label>
+            <input type="number" name="system.skills.investigation.value" value="{{system.skills.investigation.value}}"
+              min="0" max="100" />
+          </div>
+
+          {{! KNOWLEDGE }}
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.medicine.checked" {{checked system.skills.medicine.checked}} />
+            <label>Medicine (Knowledge)</label>
+            <input type="number" name="system.skills.medicine.value" value="{{system.skills.medicine.value}}" min="0"
+              max="100" />
+            <span class="competency-item">/20 =
+              <input type="number" name="system.skills.medicine.m.value" value="{{system.skills.medicine.m.value}}"
+                min="0" max="100" />M</span>
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.survival.checked" {{checked system.skills.survival.checked}} />
+            <label>Survival (Knowledge)</label>
+            <input type="number" name="system.skills.survival.value" value="{{system.skills.survival.value}}" min="0"
+              max="100" />
+          </div>
+
+          {{! TECHNIQUE }}
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.weaponhandling.checked" {{checked
+              system.skills.weaponhandling.checked}} />
+            <label>Weapon Handling (Technique)</label>
+            <input type="number" name="system.skills.weaponhandling.value"
+              value="{{system.skills.weaponhandling.value}}" min="0" max="100" />
+            <span class="competency-item">/20 =
+              <input type="number" name="system.skills.weaponhandling.wh.value"
+                value="{{system.skills.weaponhandling.wh.value}}" min="0" max="100" />WH</span>
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.tinkering.checked" {{checked system.skills.tinkering.checked}} />
+            <label>Tinkering (Technique)</label>
+            <input type="number" name="system.skills.tinkering.value" value="{{system.skills.tinkering.value}}" min="0"
+              max="100" />
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.repair.checked" {{checked system.skills.repair.checked}} />
+            <label>Repair (Technique)</label>
+            <input type="number" name="system.skills.repair.value" value="{{system.skills.repair.value}}" min="0"
+              max="100" />
+            <span class="competency-item">/20 =
+              <input type="number" name="system.skills.repair.r.value" value="{{system.skills.repair.r.value}}" min="0"
+                max="100" />R</span>
+          </div>
+
+          {{! SOCIAL }}
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.eloquence.checked" {{checked system.skills.eloquence.checked}} />
+            <label>Eloquence (Social)</label>
+            <input type="number" name="system.skills.eloquence.value" value="{{system.skills.eloquence.value}}" min="0"
+              max="100" />
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.performance.checked" {{checked
+              system.skills.performance.checked}} />
+            <label>Performance (Social)</label>
+            <input type="number" name="system.skills.performance.value" value="{{system.skills.performance.value}}"
+              min="0" max="100" />
+          </div>
+
+          <div class="competency-item">
+            <input type="checkbox" name="system.skills.empathy.checked" {{checked system.skills.empathy.checked}} />
+            <label>Empathy (Social)</label>
+            <input type="number" name="system.skills.empathy.value" value="{{system.skills.empathy.value}}" min="0"
+              max="100" />
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    {{! ===========================
+    TAB: BATTLE
+    =========================== }}
+    <div class="tab" data-group="primary-tabs" data-tab="battle">
+      <h2>Battle</h2>
+      <section class="equipment-grid">
+
+        {{! =======================
+        WEAPONS
+        ======================= }}
+        <div class="equipment-block weapons">
+          <h2>Weapons</h2>
+
+          {{!-- Primary Weapon --}}
+          <div class="weapon-row primary-weapon">
+
+            <div class="field-line">
+              <label>Primary Weapon:</label>
+              <input type="text" name="system.weapons.primary.name" value="{{system.weapons.primary.name}}" />
+            </div>
+
+            <div class="field-line">
+              <label>Weapon Type:</label>
+              <select name="system.weapons.primary.type">
+                <option value="melee" {{#if (eq system.weapons.primary.type "melee" )}}selected{{/if}}>Melee</option>
+                <option value="close" {{#if (eq system.weapons.primary.type "close" )}}selected{{/if}}>Close Range
+                </option>
+                <option value="middle" {{#if (eq system.weapons.primary.type "middle" )}}selected{{/if}}>Middle Range
+                </option>
+                <option value="wide" {{#if (eq system.weapons.primary.type "wide" )}}selected{{/if}}>Wide Range</option>
+              </select>
+            </div>
+
+            <div class="field-line">
+              <label>Weapon Accuracy:</label>
+              <input type="number" name="system.weapons.primary.accuracy" value="{{system.weapons.primary.accuracy}}" />
+            </div>
+
+            <div class="field-line damage-line">
+              <label>Weapon Damage:</label>
+
+              <!-- Number of dice -->
+              <input type="number" name="system.weapons.primary.damageDieCount"
+                value="{{system.weapons.primary.damageDieCount}}" />
+
+              <span class="damage-die-prefix">D</span>
+
+              <!-- Die size -->
+              <input type="number" name="system.weapons.primary.damageDie"
+                value="{{system.weapons.primary.damageDie}}" />
+
+              <span class="damage-plus">+</span>
+
+              <!-- Flat bonus -->
+              <input type="number" name="system.weapons.primary.damageBonus"
+                value="{{system.weapons.primary.damageBonus}}" />
+
+              <span class="damage-suffix">DMG</span>
+            </div>
+
+
+            <div class="field-line">
+              <label>Properties:</label>
+              <input type="text" name="system.weapons.primary.properties"
+                value="{{system.weapons.primary.properties}}" />
+            </div>
+
+          </div>
+
+          {{!-- Secondary Weapon --}}
+          <div class="weapon-row secondary-weapon">
+
+            <div class="field-line">
+              <label>Secondary Weapon:</label>
+              <input type="text" name="system.weapons.secondary.name" value="{{system.weapons.secondary.name}}" />
+            </div>
+
+            <div class="field-line">
+              <label>Weapon Type:</label>
+              <select name="system.weapons.secondary.type">
+                <option value="melee" {{#if (eq system.weapons.secondary.type "melee" )}}selected{{/if}}>Melee</option>
+                <option value="close" {{#if (eq system.weapons.secondary.type "close" )}}selected{{/if}}>Close Range
+                </option>
+                <option value="middle" {{#if (eq system.weapons.secondary.type "middle" )}}selected{{/if}}>Middle Range
+                </option>
+                <option value="wide" {{#if (eq system.weapons.secondary.type "wide" )}}selected{{/if}}>Wide Range
+                </option>
+              </select>
+            </div>
+
+            <div class="field-line">
+              <label>Weapon Accuracy:</label>
+              <input type="number" name="system.weapons.secondary.accuracy"
+                value="{{system.weapons.secondary.accuracy}}" />
+            </div>
+
+            <div class="field-line damage-line">
+              <label>Weapon Damage:</label>
+
+              <!-- Number of dice -->
+              <input type="number" name="system.weapons.secondary.damageDieCount"
+                value="{{system.weapons.secondary.damageDieCount}}" />
+
+              <span class="damage-die-prefix">D</span>
+
+              <!-- Die size -->
+              <input type="number" name="system.weapons.secondary.damageDie"
+                value="{{system.weapons.secondary.damageDie}}" />
+
+              <span class="damage-plus">+</span>
+
+              <!-- Flat bonus -->
+              <input type="number" name="system.weapons.secondary.damageBonus"
+                value="{{system.weapons.secondary.damageBonus}}" />
+
+              <span class="damage-suffix">DMG</span>
+            </div>
+
+
+            <div class="field-line">
+              <label>Properties:</label>
+              <input type="text" name="system.weapons.secondary.properties"
+                value="{{system.weapons.secondary.properties}}" />
+            </div>
+
+          </div>
+
+        </div>
+
+        {{! =======================
+        ARMOR
+        ======================= }}
+        <div class="equipment-block armor">
+          <h2>Armor</h2>
+          <div class="field-line">
+            <label>Total Armor Value:</label>
+            <input type="number" name="system.armor.totalValue" value="{{system.armor.totalValue}}" />
+          </div>
+
+          <div class="armor-summary">
+            <div class="field-line">
+              <label>Total Accuracy Penalty:</label>
+              <input type="number" name="system.armor.penaltyAccuracyTotal"
+                value="{{system.armor.penaltyAccuracyTotal}}" />
+            </div>
+            <div class="field-line">
+              <label>Total Movement Penalty:</label>
+              <input type="number" name="system.armor.penaltyMovementTotal"
+                value="{{system.armor.penaltyMovementTotal}}" />
+            </div>
+          </div>
+
+          {{! Helmet }}
+          <div class="armor-row armor-helmet">
+            <div class="field-line">
+              <label>Helmet:</label>
+              <input type="text" name="system.armor.helmet.name" value="{{system.armor.helmet.name}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Penalty:</label>
+              <input type="number" name="system.armor.helmet.malus" value="{{system.armor.helmet.malus}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Value:</label>
+              <input type="number" name="system.armor.helmet.value" value="{{system.armor.helmet.value}}" />
+            </div>
+            <div class="field-line">
+              <label>Properties:</label>
+              <input type="text" name="system.armor.helmet.properties" value="{{system.armor.helmet.properties}}" />
+            </div>
+          </div>
+
+          {{! Vest }}
+          <div class="armor-row armor-vest">
+            <div class="field-line">
+              <label>Protective Vest:</label>
+              <input type="text" name="system.armor.vest.name" value="{{system.armor.vest.name}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Penalty:</label>
+              <input type="number" name="system.armor.vest.malus" value="{{system.armor.vest.malus}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Value:</label>
+              <input type="number" name="system.armor.vest.value" value="{{system.armor.vest.value}}" />
+            </div>
+            <div class="field-line">
+              <label>Properties:</label>
+              <input type="text" name="system.armor.vest.properties" value="{{system.armor.vest.properties}}" />
+            </div>
+          </div>
+
+          {{! Bracers }}
+          <div class="armor-row armor-bracers">
+            <div class="field-line">
+              <label>Bracers:</label>
+              <input type="text" name="system.armor.bracers.name" value="{{system.armor.bracers.name}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Penalty:</label>
+              <input type="number" name="system.armor.bracers.malus" value="{{system.armor.bracers.malus}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Value:</label>
+              <input type="number" name="system.armor.bracers.value" value="{{system.armor.bracers.value}}" />
+            </div>
+            <div class="field-line">
+              <label>Properties:</label>
+              <input type="text" name="system.armor.bracers.properties" value="{{system.armor.bracers.properties}}" />
+            </div>
+          </div>
+
+          {{! Protective Pants }}
+          <div class="armor-row armor-pants">
+            <div class="field-line">
+              <label>Protective Pants:</label>
+              <input type="text" name="system.armor.pants.name" value="{{system.armor.pants.name}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Penalty:</label>
+              <input type="number" name="system.armor.pants.malus" value="{{system.armor.pants.malus}}" />
+            </div>
+            <div class="field-line">
+              <label>Armor Value:</label>
+              <input type="number" name="system.armor.pants.value" value="{{system.armor.pants.value}}" />
+            </div>
+            <div class="field-line">
+              <label>Properties:</label>
+              <input type="text" name="system.armor.pants.properties" value="{{system.armor.pants.properties}}" />
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+    {{! ===========================
+    TAB: EQUIPMENT
+    =========================== }}
+    <div class="tab" data-group="primary-tabs" data-tab="inventory">
+      <h2>Inventory</h2>
+      <p>Add your equipment UI here.</p>
+    </div>
+
+    {{! ===========================
+    TAB: EQUIPMENT
+    =========================== }}
+    <div class="tab" data-group="primary-tabs" data-tab="characterinfo">
+      <h2>Character Info</h2>
+      <p>Add your equipment UI here.</p>
+    </div>
+
+    {{! ===========================
+    TAB: NOTES
+    =========================== }}
+    <div class="tab" data-group="primary-tabs" data-tab="notes">
+      <h2>Notes</h2>
+      <textarea name="system.notes" rows="8">{{system.notes}}</textarea>
+      <section class="level-section">
+        <label class="section-title">Level:</label>
+        {{#each levels as |L|}}
+        <div class="level-row">
+          <input type="checkbox" name="system.levels.{{L.main}}" {{checked (lookup @root.system.levels L.main)}} />
+          <span>Lvl {{L.lvl}}</span>
+          {{#each L.subs as |sub|}}
+          <input type="checkbox" name="system.levels.{{sub}}" {{checked (lookup @root.system.levels sub)}} />
+          {{/each}}
+        </div>
+        {{/each}}
+      </section>
+
+    </div>
+
+  </section>
+
+</form>

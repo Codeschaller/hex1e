@@ -1,0 +1,13 @@
+.dialog .dialog-content {
+  background: #1e1e1e;
+  color: #ffffff;
+  font-family: system-ui, sans-serif;
+}
+
+.dialog input,
+.dialog select {
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 4px;
+}

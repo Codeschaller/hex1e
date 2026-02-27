@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="hex-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f18"/>
+      <stop offset="100%" stop-color="#121d2c"/>
+    </linearGradient>
+    <linearGradient id="hex-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3cf2ff"/>
+      <stop offset="100%" stop-color="#7b5cff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Hex -->
+  <polygon
+    points="64,6 110,32 110,96 64,122 18,96 18,32"
+    fill="url(#hex-bg)"
+    stroke="url(#hex-stroke)"
+    stroke-width="4"
+  />
+
+  <!-- Inner Tech Hex -->
+  <polygon
+    points="64,22 98,42 98,86 64,106 30,86 30,42"
+    fill="none"
+    stroke="#2a3a55"
+    stroke-width="2"
+  />
+
+  <!-- Skill Chip Icon -->
+  <rect x="46" y="46" width="36" height="36" rx="6"
+        fill="none" stroke="#3cf2ff" stroke-width="3"/>
+
+  <!-- Chip Lines -->
+  <path d="M64 46 V36 M64 92 V82 M46 64 H36 M92 64 H82"
+        stroke="#3cf2ff" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Small d100 Indicator -->
+  <text x="64" y="70" text-anchor="middle"
+        fill="#ffffff" font-size="18" font-weight="700"
+        font-family="Segoe UI, sans-serif">
+    d100
+  </text>
+
+  <!-- Label -->
+  <text x="64" y="108" text-anchor="middle"
+        fill="#7b5cff" font-size="12" letter-spacing="2"
+        font-family="Segoe UI, sans-serif">
+    SKILL
+  </text>
+</svg>

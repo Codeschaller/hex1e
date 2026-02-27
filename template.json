@@ -1,0 +1,229 @@
+{
+    "Actor": {
+        "types": [
+            "hero",
+            "enemy"
+        ],
+        "hero": {
+            "playerName": "",
+            "characterName": "",
+            "level": 1,
+            "attributes": {
+                "body": 0,
+                "agility": 0,
+                "accuracy": 0,
+                "knowledge": 0,
+                "tech": 0,
+                "social": 0
+            },
+            "health": {
+                "max": {
+                    "type": "Number",
+                    "default": 0
+                },
+                "value": {
+                    "type": "Number",
+                    "default": 0
+                }
+            },
+            "levels": {
+                "l1": false,
+                "l1_1": false,
+                "l2": false,
+                "l2_1": false,
+                "l2_2": false,
+                "l3": false,
+                "l3_1": false,
+                "l3_2": false,
+                "l3_3": false,
+                "l4": false,
+                "l4_1": false,
+                "l4_2": false,
+                "l4_3": false,
+                "l4_4": false,
+                "l5": false,
+                "l5_1": false,
+                "l5_2": false,
+                "l5_3": false,
+                "l5_4": false,
+                "l5_5": false
+            },
+            "body": {
+                "head": {
+                    "wound": [
+                        false,
+                        false,
+                        false
+                    ],
+                    "destroyed": false
+                },
+                "bodyMali": {
+                    "accuracy": 0,
+                    "agility": 0
+                },
+                "leftArm": {
+                    "wound": [
+                        false,
+                        false,
+                        false
+                    ],
+                    "destroyed": false
+                },
+                "rightArm": {
+                    "wound": [
+                        false,
+                        false,
+                        false
+                    ],
+                    "destroyed": false
+                },
+                "leftLeg": {
+                    "wound": [
+                        false,
+                        false,
+                        false
+                    ],
+                    "destroyed": false
+                },
+                "rightLeg": {
+                    "wound": [
+                        false,
+                        false,
+                        false
+                    ],
+                    "destroyed": false
+                }
+            },
+            "skills": {
+                "strength": {
+                    "checked": false,
+                    "value": 0,
+                    "us": {
+                        "value": 0
+                    }
+                },
+                "endurance": {
+                    "checked": false,
+                    "value": 0
+                },
+                "intimidation": {
+                    "checked": false,
+                    "value": 0
+                },
+                "melee": {
+                    "checked": false,
+                    "value": 0
+                },
+                "dodge": {
+                    "checked": false,
+                    "value": 0
+                },
+                "stealth": {
+                    "checked": false,
+                    "value": 0
+                },
+                "ranged": {
+                    "checked": false,
+                    "value": 0
+                },
+                "investigation": {
+                    "checked": false,
+                    "value": 0
+                },
+                "medicine": {
+                    "checked": false,
+                    "value": 0,
+                    "m": {
+                        "value": 0
+                    }
+                },
+                "survival": {
+                    "checked": false,
+                    "value": 0
+                },
+                "weaponhandling": {
+                    "checked": false,
+                    "value": 0,
+                    "wh": {
+                        "value": 0
+                    }
+                },
+                "tinkering": {
+                    "checked": false,
+                    "value": 0
+                },
+                "repair": {
+                    "checked": false,
+                    "value": 0,
+                    "r": {
+                        "value": 0
+                    }
+                },
+                "eloquence": {
+                    "checked": false,
+                    "value": 0
+                },
+                "performance": {
+                    "checked": false,
+                    "value": 0
+                },
+                "empathy": {
+                    "checked": false,
+                    "value": 0
+                }
+            },
+            "weapons": {
+                "primary": {
+                    "name": "",
+                    "type": "melee",
+                    "accuracy": 0,
+                    "damageDie": 0,
+                    "damageBonus": 0,
+                    "properties": ""
+                },
+                "secondary": {
+                    "name": "",
+                    "type": "melee",
+                    "accuracy": 0,
+                    "damageDie": 0,
+                    "damageBonus": 0,
+                    "properties": ""
+                }
+            },
+            "armor": {
+                "totalValue": 0,
+                "penaltyAccuracyTotal": 0,
+                "penaltyMovementTotal": 0,
+                "helmet": {
+                    "name": "",
+                    "malus": 0,
+                    "value": 0,
+                    "properties": ""
+                },
+                "vest": {
+                    "name": "",
+                    "malus": 0,
+                    "value": 0,
+                    "properties": ""
+                },
+                "bracers": {
+                    "name": "",
+                    "malus": 0,
+                    "value": 0,
+                    "properties": ""
+                },
+                "pants": {
+                    "name": "",
+                    "malus": 0,
+                    "value": 0,
+                    "properties": ""
+                }
+            }
+        },
+        "enemy": {}
+    },
+    "Item": {
+        "types": [],
+        "templates": {}
+    }
+}

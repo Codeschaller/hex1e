@@ -469,7 +469,7 @@ if (!actor) return ui.notifications.warn("Select a token first.");
 
 // Pull values
 const dodge = actor.system.skills?.dodge?.value ?? 0;
-const bodyMali = actor.system.body?.bodyMali?.dodge ?? 0;
+const bodyMali = actor.system.body?.bodyMali?.agility ?? 0;
 
 // Cover options
 const coverOptions = {

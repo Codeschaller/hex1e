@@ -453,12 +453,11 @@ new Dialog({
 `;
 
 export const DOGE_ROLL_MACRO = `
-
 // ===========================================
 // HEXADOOR 1E – DODGE ROLL
 // ===========================================
 
-// Update macro icon
+// Update macro icon (safe even if macro not found)
 game.macros.getName("Dodge Roll")?.update({
   img: "systems/hex1e/assets/icons/icoDoge.svg"
 });
@@ -499,12 +498,13 @@ new Dialog({
   buttons: {
     roll: {
       label: "Roll Dodge",
-      callback: html => {
+      callback: async (html) => {
 
         const cover = Number(html.find("#cover-select").val());
         const target = dodge - bodyMali + cover;
 
-        const roll = new Roll("1d100").roll({ async: false });
+        // v13-safe roll execution
+        const roll = await (new Roll("1d100")).evaluate({ async: true });
         const result = roll.total;
 
         let outcome = "";
@@ -524,12 +524,12 @@ new Dialog({
 
         ChatMessage.create({
           speaker: ChatMessage.getSpeaker({ actor }),
-          content: msg
+          content: msg,
+          rolls: [roll]   // v13 requires explicit roll attachment
         });
       }
     }
   },
   default: "roll"
 }).render(true);
-
 `;

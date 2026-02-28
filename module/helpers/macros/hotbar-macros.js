@@ -451,3 +451,85 @@ new Dialog({
   }
 }).render(true);
 `;
+
+export const DOGE_ROLL_MACRO = `
+
+// ===========================================
+// HEXADOOR 1E – DODGE ROLL
+// ===========================================
+
+// Update macro icon
+game.macros.getName("Dodge Roll")?.update({
+  img: "systems/hex1e/assets/icons/icoDoge.svg"
+});
+
+// Actor selection
+const actor = canvas.tokens.controlled[0]?.actor;
+if (!actor) return ui.notifications.warn("Select a token first.");
+
+// Pull values
+const dodge = actor.system.skills?.dodge?.value ?? 0;
+const bodyMali = actor.system.body?.bodyMali?.dodge ?? 0;
+
+// Cover options
+const coverOptions = {
+  0: "No Cover (0)",
+  25: "Half Cover (+25)",
+  50: "Full Cover (+50)"
+};
+
+// Build dialog
+new Dialog({
+  title: "Dodge Roll",
+  content: \`
+    <div style="margin-bottom: 10px;">
+      <strong>Dodge:</strong> \${dodge}<br>
+      <strong>Body Malus:</strong> \${bodyMali}
+    </div>
+
+    <div class="form-group">
+      <label>Cover Type:</label>
+      <select id="cover-select">
+        \${Object.entries(coverOptions)
+          .map(([value, label]) => \`<option value="\${value}">\${label}</option>\`)
+          .join("")}
+      </select>
+    </div>
+  \`,
+  buttons: {
+    roll: {
+      label: "Roll Dodge",
+      callback: html => {
+
+        const cover = Number(html.find("#cover-select").val());
+        const target = dodge - bodyMali + cover;
+
+        const roll = new Roll("1d100").roll({ async: false });
+        const result = roll.total;
+
+        let outcome = "";
+        if (result <= 5) outcome = "🔥 <b>Critical Success</b>";
+        else if (result <= target / 5) outcome = "💥 <b>Extreme Success</b>";
+        else if (result <= target / 2) outcome = "✨ <b>Strong Success</b>";
+        else if (result <= target) outcome = "✔️ <b>Success</b>";
+        else if (result >= 95) outcome = "💀 <b>Critical Failure</b>";
+        else outcome = "❌ <b>Failure</b>";
+
+        const msg = \`
+          <h2>Dodge Roll</h2>
+          <p><b>Target:</b> \${target}</p>
+          <p><b>Result:</b> \${result}</p>
+          <p>\${outcome}</p>
+        \`;
+
+        ChatMessage.create({
+          speaker: ChatMessage.getSpeaker({ actor }),
+          content: msg
+        });
+      }
+    }
+  },
+  default: "roll"
+}).render(true);
+
+`;

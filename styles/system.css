@@ -11,3 +11,11 @@
   border: 1px solid #555;
   border-radius: 4px;
 }
+
+/* Make all Foundry buttons use white text */
+button,
+.dialog button,
+form button,
+.sheet button {
+  color: white !important;
+}

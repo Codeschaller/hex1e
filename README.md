@@ -53,7 +53,7 @@ TODO:
 
 Overview:
 
-- Moral (Glück)
+- Moral
   - Bewegungsreichweite
 
 #### Battle

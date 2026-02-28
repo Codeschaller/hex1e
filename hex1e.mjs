@@ -4,6 +4,7 @@ import {
   COMPETENCY_ROLL_MACRO,
   ATTACK_ROLL_MACRO,
   DAMAGE_ROLL_MACRO,
+  DOGE_ROLL_MACRO,
 } from "./module/helpers/macros/hotbar-macros.js";
 
 Hooks.once("init", () => {
@@ -102,4 +103,31 @@ Hooks.once("ready", async function () {
 
   // Assign to the current user’s hotbar slot 3
   await game.user.assignHotbarMacro(damageMacro, 3);
+
+  // =====================================
+  // DAMAGE ROLL MACRO (Hotbar Slot 3)
+  // =====================================
+  const DOGE_MACRO_NAME = "Dodge Roll";
+  const DOGE_ICON = "systems/hex1e/assets/icons/icoDodge.svg";
+
+  let dodgeMacro = game.macros.getName(DOGE_MACRO_NAME);
+  if (!dodgeMacro) {
+    dodgeMacro = await Macro.create({
+      name: DOGE_MACRO_NAME,
+      type: "script",
+      img: DOGE_ICON,
+      scope: "global",
+      command: DOGE_ROLL_MACRO,
+    });
+
+    // Set permissions when the macro is created
+    await dodgeMacro.update({
+      ownership: {
+        default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER,
+      },
+    });
+  }
+
+  // Assign to the current user’s hotbar slot 3
+  await game.user.assignHotbarMacro(dodgeMacro, 4);
 });

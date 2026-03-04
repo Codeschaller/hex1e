@@ -1,6 +1,6 @@
-/* ============================================
-   HERO SHEET – SIMPLE CLEAN THEME
-   ============================================ */
+/* ============================================================
+   GLOBAL THEME
+   ============================================================ */
 
 .hero-sheet {
   padding: 12px;
@@ -9,14 +9,39 @@
   font-family: system-ui, sans-serif;
 }
 
-/* Remove Foundry default background */
 .window-app .window-content {
   background: #1e1e1e;
 }
 
-/* ============================================
+/* Scrollbars */
+.hero-sheet ::-webkit-scrollbar {
+  width: 8px;
+}
+.hero-sheet ::-webkit-scrollbar-track {
+  background: #222;
+}
+.hero-sheet ::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+/* Generic Inputs */
+input[type="text"],
+input[type="number"] {
+  background: #2a2a2a;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #ffffff;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+input:focus {
+  border-color: #aaa;
+}
+
+/* ============================================================
    HEADER: IMAGE + BASIC INFO
-   ============================================ */
+   ============================================================ */
 
 .header-flex {
   display: flex;
@@ -27,10 +52,6 @@
   border-bottom: 1px solid #444;
 }
 
-.profile-wrapper {
-  flex: 0 0 auto;
-}
-
 .profile-img {
   width: 140px;
   height: 140px;
@@ -39,7 +60,6 @@
   border: 1px solid #555;
 }
 
-/* Basic info panel */
 .basic-info {
   flex: 1;
 }
@@ -47,7 +67,6 @@
 .basic-info h1 {
   margin: 0 0 8px 0;
 }
-
 .basic-info h1 input {
   width: 100%;
   font-size: 20px;
@@ -59,44 +78,26 @@
   padding-bottom: 4px;
 }
 
-/* Two-column grid */
+/* Two-column form grid */
 .grid-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-/* Form groups */
 .form-group {
   display: flex;
   flex-direction: column;
 }
-
 .form-group label {
   font-size: 11px;
   text-transform: uppercase;
-  color: #ffffff;
   margin-bottom: 3px;
 }
 
-.form-group input,
-.attribute input {
-  background: #2a2a2a;
-  border: 1px solid #555;
-  border-radius: 4px;
-  color: #ffffff;
-  padding: 4px 6px;
-  font-size: 12px;
-}
-
-.form-group input:focus,
-.attribute input:focus {
-  border-color: #aaa;
-}
-
-/* ============================================
+/* ============================================================
    ATTRIBUTE BAR
-   ============================================ */
+   ============================================================ */
 
 .attribute-bar {
   display: flex;
@@ -115,36 +116,32 @@
   align-items: center;
   width: 80px;
 }
-
 .attribute label {
   font-size: 11px;
   text-transform: uppercase;
-  color: #ffffff;
   margin-bottom: 4px;
 }
-
 .attribute input {
   text-align: center;
 }
 
-/* ============================================
-   HEALTH BAR
-   ============================================ */
+/* ============================================================
+   HEALTH
+   ============================================================ */
 
 .health-values {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-
 .separator {
   font-weight: bold;
   color: #ff4444;
 }
 
-/* ============================================
-   LEVEL
-   ============================================ */
+/* ============================================================
+   LEVEL SECTION
+   ============================================================ */
 
 .level-section {
   margin-top: 15px;
@@ -155,11 +152,9 @@
 }
 
 .section-title {
-  display: block;
   font-size: 12px;
   text-transform: uppercase;
   margin-bottom: 8px;
-  color: #ffffff;
 }
 
 .level-row {
@@ -168,67 +163,42 @@
   gap: 6px;
   margin-bottom: 6px;
 }
-
 .level-row span {
   width: 50px;
   font-size: 12px;
-  color: #ffffff;
 }
 
-/* ============================================
+/* ============================================================
    TABS
-   ============================================ */
+   ============================================================ */
 
 .sheet-tabs {
   margin-top: 12px;
   border-bottom: 1px solid #444;
 }
-
 .sheet-tabs .item {
   padding: 6px 12px;
   cursor: pointer;
   display: inline-block;
-  color: #ffffff;
 }
-
 .sheet-tabs .item.active {
   border-bottom: 2px solid #ffffff;
   font-weight: bold;
-  color: #ffffff;
 }
 
 .sheet-body {
   padding: 10px 5px;
 }
 
-/* ============================================
-   SCROLLBAR
-   ============================================ */
-
-.hero-sheet ::-webkit-scrollbar {
-  width: 8px;
-}
-
-.hero-sheet ::-webkit-scrollbar-track {
-  background: #222;
-}
-
-.hero-sheet ::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 4px;
-}
-
-/* ============================================
-   BODY SCHEMA
-   ============================================ */
+/* ============================================================
+   BODY SCHEMA (RIGHT COLUMN)
+   ============================================================ */
 
 .body-schema {
-  font-family: system-ui, sans-serif;
   max-width: 520px;
   border: 1px solid #444;
   padding: 16px;
   background: #111;
-  color: #ffffff;
 }
 
 .body-schema h2 {
@@ -237,7 +207,6 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 16px;
-  color: #ffffff;
 }
 
 .body-grid {
@@ -262,7 +231,6 @@
   text-transform: uppercase;
   font-size: 0.8rem;
   margin-bottom: 8px;
-  color: #ffffff;
 }
 
 .damage-row {
@@ -271,30 +239,23 @@
   gap: 8px;
   margin-bottom: 6px;
 }
-
 .damage-row label {
   min-width: 90px;
   font-size: 0.75rem;
-  color: #ffffff;
 }
-.damage-row input {
-  color: #ffffff;
-}
-
 .checkboxes {
   display: flex;
   gap: 6px;
 }
-
 .checkboxes input[type="checkbox"] {
   width: 14px;
   height: 14px;
   accent-color: #ff4444;
 }
 
-/* ============================================
+/* ============================================================
    SKILLS
-   ============================================ */
+   ============================================================ */
 
 .competency-grid {
   display: grid;
@@ -309,19 +270,9 @@
   gap: 6px;
 }
 
-.competency-item label {
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.competency-item input {
-  font-weight: 500;
-  color: #ffffff;
-}
-
-/* ================================
-   EQUIPMENT GRID LAYOUT
-   ================================ */
+/* ============================================================
+   EQUIPMENT
+   ============================================================ */
 
 .equipment-grid {
   display: grid;
@@ -335,21 +286,18 @@
   border: 1px solid #555;
   border-radius: 6px;
   background: #222;
-  color: #ffffff;
 }
 
 .equipment-block h2 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
+  margin: 0 0 0.75rem 0;
   font-size: 1.3rem;
   border-bottom: 1px solid #555;
   padding-bottom: 0.3rem;
-  color: #ffffff;
 }
 
-/* ================================
+/* ============================================================
    FIELD LINES
-   ================================ */
+   ============================================================ */
 
 .field-line {
   display: flex;
@@ -357,36 +305,17 @@
   margin-bottom: 0.4rem;
   gap: 0.5rem;
 }
-
 .field-line label {
   flex: 0 0 180px;
   font-weight: 600;
-  color: #ffffff;
 }
-
-.field-line input[type="text"],
-.field-line input[type="number"] {
+.field-line input {
   flex: 1;
-  padding: 2px 4px;
-  background: #2a2a2a;
-  border: 1px solid #666;
-  border-radius: 4px;
-  color: #ffffff;
 }
 
-/* ================================
-   DAMAGE LINE
-   ================================ */
-
-.damage-line span {
-  margin: 0 4px;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-/* ================================
-   ARMOR SECTIONS
-   ================================ */
+/* ============================================================
+   ARMOR
+   ============================================================ */
 
 .armor-summary {
   margin-bottom: 1rem;
@@ -400,11 +329,6 @@
   border: 1px solid #444;
   border-radius: 4px;
   background: #1a1a1a;
-  color: #ffffff;
-}
-
-.armor-row .field-line label {
-  flex: 0 0 150px;
 }
 
 .armor-total {
@@ -413,14 +337,9 @@
   border-top: 1px dashed #555;
 }
 
-.armor-total label {
-  font-weight: 700;
-  color: #ffffff;
-}
-
-/* ================================
-   WEAPON ROWS
-   ================================ */
+/* ============================================================
+   WEAPONS
+   ============================================================ */
 
 .weapon-row {
   margin-bottom: 1rem;
@@ -428,19 +347,50 @@
   border: 1px solid #444;
   border-radius: 4px;
   background: #1a1a1a;
-  color: #ffffff;
 }
 
-.weapon-row .field-line label {
-  flex: 0 0 160px;
+/* ============================================================
+   ABILITIES (RIGHT COLUMN)
+   ============================================================ */
+
+.abilities-section {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #444;
 }
 
-/* ================================
-   RESPONSIVE
-   ================================ */
+.abilities-section h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #444;
+}
 
-@media (max-width: 900px) {
-  .equipment-grid {
-    grid-template-columns: 1fr;
-  }
+.ability-row {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.25rem 0;
+}
+
+.ability-row:not(:last-child) {
+  border-bottom: 1px solid #333;
+}
+
+.lvl-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.ability-row input[type="checkbox"] {
+  transform: scale(1.1);
+}
+
+.ability-row input[type="text"] {
+  width: 100%;
+  padding: 2px 4px;
+  font-size: 0.9rem;
 }

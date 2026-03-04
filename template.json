@@ -218,7 +218,24 @@
                     "value": 0,
                     "properties": ""
                 }
-            }
+            },
+            "abilities": [
+                {
+                    "lvl1_1": false,
+                    "lvl1_2": false,
+                    "abilityProperties": ""
+                },
+                {
+                    "lvl2_1": false,
+                    "lvl2_2": false,
+                    "abilityProperties": ""
+                },
+                {
+                    "lvl3_1": false,
+                    "lvl3_2": false,
+                    "abilityProperties": ""
+                }
+            ]
         },
         "enemy": {}
     },

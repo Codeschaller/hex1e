@@ -395,6 +395,7 @@ Layout:
     =========================== }}
     <div class="tab" data-group="primary-tabs" data-tab="battle">
       <h2>Battle</h2>
+
       <section class="equipment-grid">
 
         {{! =======================
@@ -625,6 +626,66 @@ Layout:
         </div>
 
       </section>
+
+    <section class="abilities-section">
+  <h2>Abilities</h2>
+
+  {{!-- === Ability Row 1 === --}}
+  <div class="ability-row">
+    <label class="lvl-label">LvL1</label>
+
+    <input type="checkbox"
+      name="system.abilities.ability1.lvl1_1"
+      {{checked system.abilities.ability1.lvl1_1}} />
+
+    <input type="checkbox"
+      name="system.abilities.ability1.lvl1_2"
+      {{checked system.abilities.ability1.lvl1_2}} />
+
+    <input type="text"
+      name="system.abilities.ability1.abilityProperties"
+      value="{{system.abilities.ability1.abilityProperties}}"
+      placeholder="Text" />
+  </div>
+
+  {{!-- === Ability Row 2 === --}}
+  <div class="ability-row">
+    <label class="lvl-label">LvL2</label>
+
+    <input type="checkbox"
+      name="system.abilities.ability2.lvl2_1"
+      {{checked system.abilities.ability2.lvl2_1}} />
+
+    <input type="checkbox"
+      name="system.abilities.ability2.lvl2_2"
+      {{checked system.abilities.ability2.lvl2_2}} />
+
+    <input type="text"
+      name="system.abilities.ability2.abilityProperties"
+      value="{{system.abilities.ability2.abilityProperties}}"
+      placeholder="Text" />
+  </div>
+
+  {{!-- === Ability Row 3 === --}}
+  <div class="ability-row">
+    <label class="lvl-label">LvL4</label>
+
+    <input type="checkbox"
+      name="system.abilities.ability3.lvl3_1"
+      {{checked system.abilities.ability3.lvl3_1}} />
+
+    <input type="checkbox"
+      name="system.abilities.ability3.lvl3_2"
+      {{checked system.abilities.ability3.lvl3_2}} />
+
+    <input type="text"
+      name="system.abilities.ability3.abilityProperties"
+      value="{{system.abilities.ability3.abilityProperties}}"
+      placeholder="Text" />
+  </div>
+
+</section>
+
 
     </div>
 

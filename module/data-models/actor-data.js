@@ -255,6 +255,23 @@ export class ActorDataModel extends foundry.abstract.DataModel {
           properties: new fields.StringField({ initial: "" }),
         }),
       }),
+      abilities: new fields.SchemaField({
+        ability1: new fields.SchemaField({
+          lvl1_1: new fields.BooleanField({ initial: false }),
+          lvl1_2: new fields.BooleanField({ initial: false }),
+          abilityProperties: new fields.StringField({ initial: "" }),
+        }),
+        ability2: new fields.SchemaField({
+          lvl2_1: new fields.BooleanField({ initial: false }),
+          lvl2_2: new fields.BooleanField({ initial: false }),
+          abilityProperties: new fields.StringField({ initial: "" }),
+        }),
+        ability3: new fields.SchemaField({
+          lvl3_1: new fields.BooleanField({ initial: false }),
+          lvl3_2: new fields.BooleanField({ initial: false }),
+          abilityProperties: new fields.StringField({ initial: "" }),
+        }),
+      }),
     };
   }
 }

@@ -26,6 +26,28 @@
                     "default": 0
                 }
             },
+            "resistances": {
+                "electricity": {
+                    "weak": false,
+                    "resist": false,
+                    "immune": false
+                },
+                "fire": {
+                    "weak": false,
+                    "resist": false,
+                    "immune": false
+                },
+                "frost": {
+                    "weak": false,
+                    "resist": false,
+                    "immune": false
+                },
+                "acid": {
+                    "weak": false,
+                    "resist": false,
+                    "immune": false
+                }
+            },
             "levels": {
                 "l1": false,
                 "l1_1": false,
@@ -188,6 +210,32 @@
                     "damageDie": 0,
                     "damageBonus": 0,
                     "properties": ""
+                }
+            },
+            "status": {
+                "blinded": {
+                    "immune": false,
+                    "applied": false
+                },
+                "bleeding": {
+                    "immune": false,
+                    "applied": false
+                },
+                "radiated": {
+                    "immune": false,
+                    "applied": false
+                },
+                "chilled": {
+                    "immune": false,
+                    "applied": false
+                },
+                "burning": {
+                    "immune": false,
+                    "applied": false
+                },
+                "stunned": {
+                    "immune": false,
+                    "applied": false
                 }
             },
             "armor": {

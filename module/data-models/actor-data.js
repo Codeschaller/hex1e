@@ -1,3 +1,16 @@
+/**
+ * ActorDataModel
+ * Defines the data schema for all actor types (heroes, NPCs, enemies) within the HEX1E
+ * Foundry VTT system. This class extends Foundry's abstract DataModel and is used
+ * by the system to validate, initialize, and manage actor data fields.
+ *
+ * Each section below uses SchemaField definitions from foundry.data.fields to build
+ * a nested structure describing health, attributes, skills, combat gear, abilities,
+ * resistances, and status effects.
+ *
+ * NOTE: Fields are initialized with sensible defaults to make new actor creation
+ * easier and to ensure compatibility with existing migrations.
+ */
 export class ActorDataModel extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -98,6 +111,9 @@ export class ActorDataModel extends foundry.abstract.DataModel {
       }),
       // Inside your actor-data.js HeroDataModel.defineSchema()
 
+      // -----------------------------------------
+      // SKILLS: Each skill has a training checkbox, a base value,
+      // and (for some) a sub-value used for specialty or usage calculation.
       skills: new foundry.data.fields.SchemaField({
         strength: new foundry.data.fields.SchemaField({
           checked: new foundry.data.fields.BooleanField({ initial: false }),
@@ -270,6 +286,54 @@ export class ActorDataModel extends foundry.abstract.DataModel {
           lvl3_1: new fields.BooleanField({ initial: false }),
           lvl3_2: new fields.BooleanField({ initial: false }),
           abilityProperties: new fields.StringField({ initial: "" }),
+        }),
+      }),
+      resistances: new fields.SchemaField({
+        electricity: new fields.SchemaField({
+          weak: new fields.BooleanField({ initial: false }),
+          resist: new fields.BooleanField({ initial: false }),
+          immune: new fields.BooleanField({ initial: false }),
+        }),
+        fire: new fields.SchemaField({
+          weak: new fields.BooleanField({ initial: false }),
+          resist: new fields.BooleanField({ initial: false }),
+          immune: new fields.BooleanField({ initial: false }),
+        }),
+        frost: new fields.SchemaField({
+          weak: new fields.BooleanField({ initial: false }),
+          resist: new fields.BooleanField({ initial: false }),
+          immune: new fields.BooleanField({ initial: false }),
+        }),
+        acid: new fields.SchemaField({
+          weak: new fields.BooleanField({ initial: false }),
+          resist: new fields.BooleanField({ initial: false }),
+          immune: new fields.BooleanField({ initial: false }),
+        }),
+      }),
+      status: new fields.SchemaField({
+        blinded: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
+        }),
+        bleeding: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
+        }),
+        radiated: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
+        }),
+        chilled: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
+        }),
+        burning: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
+        }),
+        stunned: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
         }),
       }),
     };

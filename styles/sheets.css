@@ -43,25 +43,33 @@ input:focus {
    HEADER: IMAGE + BASIC INFO
    ============================================================ */
 
-.header-flex {
+.left-column {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header-flex {
+  display: grid;
+  grid-template-columns: 220px 250px 1fr;
   gap: 16px;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #444;
 }
 
 .profile-img {
-  width: 140px;
-  height: 140px;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 2px solid var(--color-border-dark, #444);
   object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #555;
+}
+
+.profile-wrapper {
+  flex: 0 0 180px;
+  max-width: 180px;
 }
 
 .basic-info {
-  flex: 1;
+  max-width: 250px;
 }
 
 .basic-info h1 {
@@ -93,6 +101,34 @@ input:focus {
   font-size: 11px;
   text-transform: uppercase;
   margin-bottom: 3px;
+}
+
+/* ============================================================
+   RESISTANCES (RIGHT COLUMN)
+   ============================================================ */
+
+.resistance-section {
+  margin-top: 1rem;
+}
+
+.resistance-grid {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 60px);
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.res-row {
+  display: contents;
+}
+
+.res-row.header {
+  font-weight: bold;
+  text-align: center;
+}
+
+.res-label {
+  font-weight: bold;
 }
 
 /* ============================================================

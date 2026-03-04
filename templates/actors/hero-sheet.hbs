@@ -13,10 +13,8 @@ Layout:
   ====================================================== }}
   <section class="header-flex">
 
-    {{! LEFT COLUMN: Character image }}
-    <div class="profile-wrapper">
-      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-    </div>
+    <div class="left-column"> <div class="profile-wrapper"> <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" /> </div> <section class="resistance-section"> <h2>Resistances</h2> <div class="resistance-grid"> <div class="res-row header"> <div class="res-label"></div> <div class="res-col">Weak</div> <div class="res-col">Resist</div> <div class="res-col">Immune</div> </div> <div class="res-row"> <div class="res-label">Electricity</div> <input type="checkbox" name="system.resistances.electricity.weak" {{checked system.resistances.electricity.weak}} /> <input type="checkbox" name="system.resistances.electricity.resist" {{checked system.resistances.electricity.resist}} /> <input type="checkbox" name="system.resistances.electricity.immune" {{checked system.resistances.electricity.immune}} /> </div> <div class="res-row"> <div class="res-label">Fire</div> <input type="checkbox" name="system.resistances.fire.weak" {{checked system.resistances.fire.weak}} /> <input type="checkbox" name="system.resistances.fire.resist" {{checked system.resistances.fire.resist}} /> <input type="checkbox" name="system.resistances.fire.immune" {{checked system.resistances.fire.immune}} /> </div> <div class="res-row"> <div class="res-label">Frost</div> <input type="checkbox" name="system.resistances.frost.weak" {{checked system.resistances.frost.weak}} /> <input type="checkbox" name="system.resistances.frost.resist" {{checked system.resistances.frost.resist}} /> <input type="checkbox" name="system.resistances.frost.immune" {{checked system.resistances.frost.immune}} /> </div> <div class="res-row"> <div class="res-label">Acid</div> <input type="checkbox" name="system.resistances.acid.weak" {{checked system.resistances.acid.weak}} /> <input type="checkbox" name="system.resistances.acid.resist" {{checked system.resistances.acid.resist}} /> <input type="checkbox" name="system.resistances.acid.immune" {{checked system.resistances.acid.immune}} /> </div> </div> </section> </div>
+
 
     {{! MIDDLE COLUMN: Basic information }}
     <div class="basic-info">
@@ -51,8 +49,12 @@ Layout:
           </div>
         </div>
 
+
+
       </div>
     </div>
+
+    
 
     {{! RIGHT COLUMN: Race and Class Section }}
 
@@ -394,8 +396,65 @@ Layout:
     TAB: BATTLE
     =========================== }}
     <div class="tab" data-group="primary-tabs" data-tab="battle">
-      <h2>Battle</h2>
+  
+  <section class="tab-content">
+  <h2>Abilities</h2>
 
+  {{!-- === Ability Row 1 === --}}
+  <div class="ability-row">
+    <label class="lvl-label">LvL1</label>
+
+    <input type="checkbox"
+      name="system.abilities.ability1.lvl1_1"
+      {{checked system.abilities.ability1.lvl1_1}} />
+
+    <input type="checkbox"
+      name="system.abilities.ability1.lvl1_2"
+      {{checked system.abilities.ability1.lvl1_2}} />
+
+    <input type="text"
+      name="system.abilities.ability1.abilityProperties"
+      value="{{system.abilities.ability1.abilityProperties}}"
+      placeholder="Text" />
+  </div>
+
+  {{!-- === Ability Row 2 === --}}
+  <div class="ability-row">
+    <label class="lvl-label">LvL2</label>
+
+    <input type="checkbox"
+      name="system.abilities.ability2.lvl2_1"
+      {{checked system.abilities.ability2.lvl2_1}} />
+
+    <input type="checkbox"
+      name="system.abilities.ability2.lvl2_2"
+      {{checked system.abilities.ability2.lvl2_2}} />
+
+    <input type="text"
+      name="system.abilities.ability2.abilityProperties"
+      value="{{system.abilities.ability2.abilityProperties}}"
+      placeholder="Text" />
+  </div>
+
+  {{!-- === Ability Row 3 === --}}
+  <div class="ability-row">
+    <label class="lvl-label">LvL4</label>
+
+    <input type="checkbox"
+      name="system.abilities.ability3.lvl3_1"
+      {{checked system.abilities.ability3.lvl3_1}} />
+
+    <input type="checkbox"
+      name="system.abilities.ability3.lvl3_2"
+      {{checked system.abilities.ability3.lvl3_2}} />
+
+    <input type="text"
+      name="system.abilities.ability3.abilityProperties"
+      value="{{system.abilities.ability3.abilityProperties}}"
+      placeholder="Text" />
+  </div>
+
+</section>
       <section class="equipment-grid">
 
         {{! =======================
@@ -517,6 +576,104 @@ Layout:
             </div>
 
           </div>
+<section class="status-effects">
+  <h2>Statuseffekte</h2>
+
+  <table class="status-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Immun</th>
+        <th>Angewendet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Blinded</td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.blinded.immune"
+                 {{checked system.status.blinded.immune}} />
+        </td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.blinded.applied"
+                 {{checked system.status.blinded.applied}} />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Bleeding</td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.bleeding.immune"
+                 {{checked system.status.bleeding.immune}} />
+        </td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.bleeding.applied"
+                 {{checked system.status.bleeding.applied}} />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Irradiated / Poisoned</td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.radiated.immune"
+                 {{checked system.status.radiated.immune}} />
+        </td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.radiated.applied"
+                 {{checked system.status.radiated.applied}} />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Chilled</td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.chilled.immune"
+                 {{checked system.status.chilled.immune}} />
+        </td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.chilled.applied"
+                 {{checked system.status.chilled.applied}} />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Burning</td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.burning.immune"
+                 {{checked system.status.burning.immune}} />
+        </td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.burning.applied"
+                 {{checked system.status.burning.applied}} />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Stunned / Shocked</td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.stunned.immune"
+                 {{checked system.status.stunned.immune}} />
+        </td>
+        <td>
+          <input type="checkbox"
+                 name="system.status.stunned.applied"
+                 {{checked system.status.stunned.applied}} />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
         </div>
 
@@ -627,64 +784,7 @@ Layout:
 
       </section>
 
-    <section class="abilities-section">
-  <h2>Abilities</h2>
-
-  {{!-- === Ability Row 1 === --}}
-  <div class="ability-row">
-    <label class="lvl-label">LvL1</label>
-
-    <input type="checkbox"
-      name="system.abilities.ability1.lvl1_1"
-      {{checked system.abilities.ability1.lvl1_1}} />
-
-    <input type="checkbox"
-      name="system.abilities.ability1.lvl1_2"
-      {{checked system.abilities.ability1.lvl1_2}} />
-
-    <input type="text"
-      name="system.abilities.ability1.abilityProperties"
-      value="{{system.abilities.ability1.abilityProperties}}"
-      placeholder="Text" />
-  </div>
-
-  {{!-- === Ability Row 2 === --}}
-  <div class="ability-row">
-    <label class="lvl-label">LvL2</label>
-
-    <input type="checkbox"
-      name="system.abilities.ability2.lvl2_1"
-      {{checked system.abilities.ability2.lvl2_1}} />
-
-    <input type="checkbox"
-      name="system.abilities.ability2.lvl2_2"
-      {{checked system.abilities.ability2.lvl2_2}} />
-
-    <input type="text"
-      name="system.abilities.ability2.abilityProperties"
-      value="{{system.abilities.ability2.abilityProperties}}"
-      placeholder="Text" />
-  </div>
-
-  {{!-- === Ability Row 3 === --}}
-  <div class="ability-row">
-    <label class="lvl-label">LvL4</label>
-
-    <input type="checkbox"
-      name="system.abilities.ability3.lvl3_1"
-      {{checked system.abilities.ability3.lvl3_1}} />
-
-    <input type="checkbox"
-      name="system.abilities.ability3.lvl3_2"
-      {{checked system.abilities.ability3.lvl3_2}} />
-
-    <input type="text"
-      name="system.abilities.ability3.abilityProperties"
-      value="{{system.abilities.ability3.abilityProperties}}"
-      placeholder="Text" />
-  </div>
-
-</section>
+  
 
 
     </div>

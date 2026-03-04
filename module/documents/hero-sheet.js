@@ -15,7 +15,7 @@ export class HeroSheet extends ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["hex1e", "sheet", "actor", "hero"], // wichtig für CSS und System-Identität
       template: "systems/hex1e/templates/actors/hero-sheet.hbs", // HTML-Datei des Sheets
-      width: 900,
+      width: 1050,
       height: 1000,
       tabs: [
         {

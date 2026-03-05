@@ -24,6 +24,18 @@
                 "value": {
                     "type": "Number",
                     "default": 0
+                },
+                "temp": {
+                    "type": "Number",
+                    "default": 0
+                },
+                "reparable": {
+                    "type": "Boolean",
+                    "default": false
+                },
+                "healable": {
+                    "type": "Boolean",
+                    "default": false
                 }
             },
             "gear": {
@@ -32,7 +44,10 @@
             },
             "identity": {
                 "race": "",
-                "class": ""
+                "class": "",
+                "note": "",
+                "playertyp": "",
+                "sex": ""
             },
             "movement": {
                 "max": 0,
@@ -215,6 +230,7 @@
                     "accuracy": 0,
                     "damageDie": 0,
                     "damageBonus": 0,
+                    "damageType": "",
                     "properties": ""
                 },
                 "secondary": {
@@ -223,6 +239,7 @@
                     "accuracy": 0,
                     "damageDie": 0,
                     "damageBonus": 0,
+                    "damageType": "",
                     "properties": ""
                 }
             },
@@ -232,6 +249,10 @@
                     "applied": false
                 },
                 "bleeding": {
+                    "immune": false,
+                    "applied": false
+                },
+                "poisoned": {
                     "immune": false,
                     "applied": false
                 },
@@ -248,6 +269,10 @@
                     "applied": false
                 },
                 "stunned": {
+                    "immune": false,
+                    "applied": false
+                },
+                "shocked": {
                     "immune": false,
                     "applied": false
                 }

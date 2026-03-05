@@ -66,71 +66,106 @@ Layout:
         <label>Player Name</label>
         <input type="text" name="system.playerName" value="{{system.playerName}}" />
       </div>
-
-
-
-      <div class="grid-2col">
-
-        <div class="form-group"> <label>Armor Types</label> <input type="text" name="system.gear.armorTypes"
-            value="{{system.gear.armorTypes}}" /> </div>
-        <div class="form-group"> <label>Weapon Types</label> <input type="text" name="system.gear.weaponTypes"
-            value="{{system.gear.weaponTypes}}" /> </div>
-        <div class="form-group"> <label>Race</label> <input type="text" name="system.identity.race"
-            value="{{system.identity.race}}" /> </div>
-        <div class="form-group"> <label>Class</label> <input type="text" name="system.identity.class"
-            value="{{system.identity.class}}" /> </div>
-        <div class="form-group">
-          <label>Level</label>
-          <input type="number" name="system.level" value="{{system.level}}" min="1" />
-        </div>
-
-        <div class="form-group">
-          <label>Health</label>
-          <div class="health-values">
-            <input type="number" name="system.health.value" value="{{system.health.value}}" min="0" />
-            <span class="separator">/</span>
-            <input type="number" name="system.health.max" value="{{system.health.max}}" />
-          </div>
-        </div>
-
-
+   <div class="form-group">
+        <label>Level</label>
+        <input type="number" name="system.level" value="{{system.level}}" min="1" />
       </div>
+
+
     
 
-        <h3 class="movement-title">Movement</h3>
 
-        <!-- ROW 1 -->
-        <div class="movement-row row-top">
-          <div class="field">
-            <label>Max</label>
-            <input type="number" name="system.movement.max" value="{{system.movement.max}}" min="0" />
-          </div>
 
-          <span class="operator">−</span>
 
-          <div class="field">
-            <label>Armor Penalty</label>
-            <input type="number" name="system.movement.armorPenalty" value="{{system.movement.armorPenalty}}" />
-          </div>
 
-          <span class="operator">=</span>
+
+
+      <h3 class="movement-title">Movement</h3>
+
+      <!-- ROW 1 -->
+      <div class="movement-row row-top">
+        <div class="field">
+          <label>Max</label>
+          <input type="number" name="system.movement.max" value="{{system.movement.max}}" min="0" />
         </div>
 
-        <!-- ROW 2 -->
-        <div class="movement-row row-bottom">
-          <div class="field">
-            <label>Meter</label>
-            <input type="number" name="system.movement.meters" value="{{system.movement.meters}}" min="0" />
-          </div>
+        <span class="operator">−</span>
 
-          <div class="field">
-            <label>Hexagons</label>
-            <input type="number" name="system.movement.hexagons" value="{{system.movement.hexagons}}" min="0" />
-          </div>
+        <div class="field">
+          <label>Armor Penalty</label>
+          <input type="number" name="system.movement.armorPenalty" value="{{system.movement.armorPenalty}}" />
         </div>
 
-     
+        <span class="operator">=</span>
+      </div>
+
+      <!-- ROW 2 -->
+      <div class="movement-row row-bottom">
+        <div class="field">
+          <label>Meter</label>
+          <input type="number" name="system.movement.meters" value="{{system.movement.meters}}" min="0" />
+        </div>
+
+        <div class="field">
+          <label>Hexagons</label>
+          <input type="number" name="system.movement.hexagons" value="{{system.movement.hexagons}}" min="0" />
+        </div>
+      </div>
+<h2>Health</h2>
+        <div class="form-group">
+  
+
+  <div class="health-values">
+    <input
+      type="number"
+      name="system.health.value"
+      value="{{system.health.value}}"
+      min="0"
+    />
+
+    <span class="separator">/</span>
+
+    <input
+      type="number"
+      name="system.health.max"
+      value="{{system.health.max}}"
+    />
+
+    <span class="separator">(</span>
+
+    <input
+      type="number"
+      name="system.health.temp"
+      value="{{system.health.temp}}"
+      min="0"
+      class="temp-health"
+    />
+
+    <span class="separator">)</span>
+  </div>
+</div>
+<div class="form-group">
+  <div class="health-values">
+  
+  <label>Reparable</label>
+  <input
+    type="checkbox"
+    name="system.health.reparable"
+    {{checked system.health.reparable}}
+  />
+
+  <label>Healable</label>
+  <input
+    type="checkbox"
+    name="system.health.healable"
+    {{checked system.health.healable}}
+  />
+</div>
+</div>
+
     </div>
+
+    
 
 
 
@@ -570,6 +605,10 @@ Layout:
               <span class="damage-suffix">DMG</span>
             </div>
 
+            <div class="field-line">
+              <label>Damage Type:</label>
+              <input type="text" name="system.weapons.primary.damageType" value="{{system.weapons.primary.damageType}}" />
+            </div>  
 
             <div class="field-line">
               <label>Properties:</label>
@@ -628,6 +667,10 @@ Layout:
               <span class="damage-suffix">DMG</span>
             </div>
 
+            <div class="field-line">
+              <label>Damage Type:</label>
+              <input type="text" name="system.weapons.secondary.damageType" value="{{system.weapons.secondary.damageType}}" />
+            </div>
 
             <div class="field-line">
               <label>Properties:</label>
@@ -673,7 +716,7 @@ Layout:
                 </tr>
 
                 <tr>
-                  <td>Irradiated / Poisoned</td>
+                  <td>Radiated</td>
                   <td>
                     <input type="checkbox" name="system.status.radiated.immune" {{checked
                       system.status.radiated.immune}} />
@@ -681,6 +724,18 @@ Layout:
                   <td>
                     <input type="checkbox" name="system.status.radiated.applied" {{checked
                       system.status.radiated.applied}} />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Poisoned</td>
+                  <td>
+                    <input type="checkbox" name="system.status.poisoned.immune" {{checked
+                      system.status.poisoned.immune}} />
+                  </td>
+                  <td>
+                    <input type="checkbox" name="system.status.poisoned.applied" {{checked
+                      system.status.poisoned.applied}} />
                   </td>
                 </tr>
 
@@ -709,7 +764,7 @@ Layout:
                 </tr>
 
                 <tr>
-                  <td>Stunned / Shocked</td>
+                  <td>Stunned</td>
                   <td>
                     <input type="checkbox" name="system.status.stunned.immune" {{checked
                       system.status.stunned.immune}} />
@@ -717,6 +772,18 @@ Layout:
                   <td>
                     <input type="checkbox" name="system.status.stunned.applied" {{checked
                       system.status.stunned.applied}} />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Shocked</td>
+                  <td>
+                    <input type="checkbox" name="system.status.shocked.immune" {{checked
+                      system.status.shocked.immune}} />
+                  </td>
+                  <td>
+                    <input type="checkbox" name="system.status.shocked.applied" {{checked
+                      system.status.shocked.applied}} />
                   </td>
                 </tr>
               </tbody>
@@ -846,11 +913,82 @@ Layout:
     </div>
 
     {{! ===========================
-    TAB: EQUIPMENT
+    TAB: CHARACTER INFO
     =========================== }}
+
     <div class="tab" data-group="primary-tabs" data-tab="characterinfo">
-      <h2>Character Info</h2>
-      <p>Add your equipment UI here.</p>
+     <div class="grid-3col">
+
+  <div class="form-group">
+    <label>Armor Types</label>
+    <input
+      type="text"
+      name="system.gear.armorTypes"
+      value="{{system.gear.armorTypes}}"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Race</label>
+    <input
+      type="text"
+      name="system.identity.race"
+      value="{{system.identity.race}}"
+    />
+  </div>
+<div class="form-group">
+    <label>Sex</label>
+    <input
+      type="text"
+      name="system.identity.sex"
+      value="{{system.identity.sex}}"
+    />
+  </div>
+  
+
+  
+
+  <div class="form-group">
+    <label>Weapon Types</label>
+    <input
+      type="text"
+      name="system.gear.weaponTypes"
+      value="{{system.gear.weaponTypes}}"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Class</label>
+    <input
+      type="text"
+      name="system.identity.class"
+      value="{{system.identity.class}}"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Playertyp</label>
+    <input
+      type="text"
+      name="system.identity.playertyp"
+      value="{{system.identity.playertyp}}"
+    />
+  </div>
+
+  
+
+</div>
+
+
+  <label>Character Note</label>
+  <textarea
+    name="system.identity.note"
+    rows="16"
+    placeholder="Character Note..."
+  >{{system.identity.note}}</textarea>
+
+   
+    </div>
     </div>
 
     {{! ===========================
@@ -858,7 +996,7 @@ Layout:
     =========================== }}
     <div class="tab" data-group="primary-tabs" data-tab="notes">
       <h2>Notes</h2>
-      <textarea name="system.notes" rows="8">{{system.notes}}</textarea>
+      <textarea name="system.notes" rows="16" placeholder="Adventure notes...">{{system.notes}}</textarea>
       <section class="level-section">
         <label class="section-title">Level:</label>
         {{#each levels as |L|}}

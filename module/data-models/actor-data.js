@@ -22,6 +22,9 @@ export class ActorDataModel extends foundry.abstract.DataModel {
       health: new fields.SchemaField({
         value: new fields.NumberField({ initial: 0 }), // Current HP
         max: new fields.NumberField({ initial: 0 }), // Maximum HP
+        temp: new fields.NumberField({ initial: 0 }), // Temporary HP (shields, buffs)
+        reparable: new fields.BooleanField({ initial: false }), // Can be repaired
+        healable: new fields.BooleanField({ initial: false }), // Can be healed
       }),
       gear: new fields.SchemaField({
         armorTypes: new fields.StringField({ initial: "" }),
@@ -30,6 +33,12 @@ export class ActorDataModel extends foundry.abstract.DataModel {
       identity: new fields.SchemaField({
         race: new fields.StringField({ initial: "" }),
         class: new fields.StringField({ initial: "" }),
+        note: new fields.StringField({
+          initial: "",
+          nullable: true,
+        }),
+        playertyp: new fields.StringField({ initial: "" }),
+        sex: new fields.StringField({ initial: "" }),
       }),
       movement: new fields.SchemaField({
         max: new fields.NumberField({ initial: 0, min: 0 }),
@@ -235,6 +244,7 @@ export class ActorDataModel extends foundry.abstract.DataModel {
           damageDieCount: new fields.NumberField({ initial: 1 }),
           damageDie: new fields.NumberField({ initial: 0 }),
           damageBonus: new fields.NumberField({ initial: 0 }),
+          damageType: new fields.StringField({ initial: "" }),
           properties: new fields.StringField({ initial: "" }),
         }),
 
@@ -248,6 +258,7 @@ export class ActorDataModel extends foundry.abstract.DataModel {
           damageDieCount: new fields.NumberField({ initial: 1 }),
           damageDie: new fields.NumberField({ initial: 0 }),
           damageBonus: new fields.NumberField({ initial: 0 }),
+          damageType: new fields.StringField({ initial: "" }),
           properties: new fields.StringField({ initial: "" }),
         }),
       }),
@@ -333,6 +344,10 @@ export class ActorDataModel extends foundry.abstract.DataModel {
           immune: new fields.BooleanField({ initial: false }),
           applied: new fields.BooleanField({ initial: false }),
         }),
+        poisoned: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
+        }),
         radiated: new fields.SchemaField({
           immune: new fields.BooleanField({ initial: false }),
           applied: new fields.BooleanField({ initial: false }),
@@ -346,6 +361,10 @@ export class ActorDataModel extends foundry.abstract.DataModel {
           applied: new fields.BooleanField({ initial: false }),
         }),
         stunned: new fields.SchemaField({
+          immune: new fields.BooleanField({ initial: false }),
+          applied: new fields.BooleanField({ initial: false }),
+        }),
+        shocked: new fields.SchemaField({
           immune: new fields.BooleanField({ initial: false }),
           applied: new fields.BooleanField({ initial: false }),
         }),

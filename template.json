@@ -26,6 +26,20 @@
                     "default": 0
                 }
             },
+            "gear": {
+                "armorTypes": "",
+                "weaponTypes": ""
+            },
+            "identity": {
+                "race": "",
+                "class": ""
+            },
+            "movement": {
+                "max": 0,
+                "armorPenalty": 0,
+                "meters": 0,
+                "hexagons": 0
+            },
             "resistances": {
                 "electricity": {
                     "weak": false,

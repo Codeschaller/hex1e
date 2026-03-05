@@ -23,6 +23,20 @@ export class ActorDataModel extends foundry.abstract.DataModel {
         value: new fields.NumberField({ initial: 0 }), // Current HP
         max: new fields.NumberField({ initial: 0 }), // Maximum HP
       }),
+      gear: new fields.SchemaField({
+        armorTypes: new fields.StringField({ initial: "" }),
+        weaponTypes: new fields.StringField({ initial: "" }),
+      }),
+      identity: new fields.SchemaField({
+        race: new fields.StringField({ initial: "" }),
+        class: new fields.StringField({ initial: "" }),
+      }),
+      movement: new fields.SchemaField({
+        max: new fields.NumberField({ initial: 0, min: 0 }),
+        armorPenalty: new fields.NumberField({ initial: 0 }),
+        meters: new fields.NumberField({ initial: 0, min: 0 }),
+        hexagons: new fields.NumberField({ initial: 0, min: 0 }),
+      }),
 
       // -----------------------------------------
       // CORE ATTRIBUTES (Primary Stats)

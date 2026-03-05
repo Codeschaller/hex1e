@@ -908,8 +908,97 @@ Layout:
     TAB: EQUIPMENT
     =========================== }}
     <div class="tab" data-group="primary-tabs" data-tab="inventory">
-      <h2>Inventory</h2>
-      <p>Add your equipment UI here.</p>
+    <div class="row-two-fields">
+
+  <div class="form-group">
+    <label>Wealth:</label>
+    <input
+      type="number"
+      name="system.wealth.infinitis"
+      value="{{system.wealth.infinitis}}"
+      placeholder="Infinitis"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Scrap: (max 10)</label>
+    <div class="scrap-row">
+      <input
+        type="number"
+        name="system.scrap.value"
+        value="{{system.scrap.value}}"
+        min="0"
+        max="10"
+      />
+      <span>(+</span>
+      <input
+        type="number"
+        name="system.scrap.bonus"
+        value="{{system.scrap.bonus}}"
+        class="scrap-bonus"
+      />
+      <span>)</span>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="panel-block">
+  <h3>Inventory:</h3>
+
+  <div class="inventory-grid">
+
+    <div class="inventory-row">
+      <span class="inv-number">1:</span>
+      <input type="text" name="system.inventory.one" value="{{system.inventory.one}}" />
+    </div>
+
+    <div class="inventory-row">
+      <span class="inv-number">2:</span>
+      <input type="text" name="system.inventory.two" value="{{system.inventory.two}}" />
+    </div>
+
+    <div class="inventory-row">
+      <span class="inv-number">3:</span>
+      <input type="text" name="system.inventory.three" value="{{system.inventory.three}}" />
+    </div>
+
+    <div class="inventory-row">
+      <span class="inv-number">4:</span>
+      <input type="text" name="system.inventory.four" value="{{system.inventory.four}}" />
+    </div>
+
+    <div class="inventory-row">
+      <span class="inv-number">5:</span>
+      <input type="text" name="system.inventory.five" value="{{system.inventory.five}}" />
+    </div>
+
+    <div class="inventory-row">
+      <span class="inv-number">6:</span>
+      <input type="text" name="system.inventory.six" value="{{system.inventory.six}}" />
+    </div>
+
+    <div class="inventory-row">
+      <span class="inv-number">7:</span>
+      <input type="text" name="system.inventory.seven" value="{{system.inventory.seven}}" />
+    </div>
+
+    <div class="inventory-row">
+      <span class="inv-number">8:</span>
+      <input type="text" name="system.inventory.eight" value="{{system.inventory.eight}}" />
+    </div>
+
+  </div>
+  <div class="panel-block">
+  <label>Inventory Note:</label>
+  <textarea name="system.inventoryNote" rows="6">{{system.inventoryNote}}</textarea>
+</div>
+
+</div>
+
+
+
     </div>
 
     {{! ===========================

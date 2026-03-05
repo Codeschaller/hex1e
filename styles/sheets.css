@@ -95,10 +95,10 @@ input:focus {
    GRIDS
    ============================================================ */
 
-.grid-3col {
+.grid-2col-fix {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: 250px 250px;
+  gap: 5px;
 }
 
 /* Two-column form grid */
@@ -106,6 +106,12 @@ input:focus {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px;
+}
+
+.grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
 }
 
 .form-group {
@@ -501,4 +507,38 @@ input:focus {
 
 .flags-row label {
   margin-right: 0.25rem;
+}
+
+.inventory-row-all {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.inv-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.inv-number {
+  font-weight: bold;
+  text-transform: lowercase;
+}
+
+.row-two-fields {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.scrap-row {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
 }

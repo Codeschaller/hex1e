@@ -46,6 +46,24 @@ export class HeroDataModel extends ActorDataModel {
         l5_4: new fields.BooleanField({ initial: false }),
         l5_5: new fields.BooleanField({ initial: false }),
       }),
+      wealth: new fields.SchemaField({
+        infinitis: new fields.StringField({ initial: "" }),
+      }),
+      scrap: new fields.SchemaField({
+        value: new fields.NumberField({ initial: 0, min: 0 }),
+        bonus: new fields.NumberField({ initial: 0, min: 0 }),
+      }),
+      inventory: new fields.SchemaField({
+        one: new fields.StringField({ initial: "" }),
+        two: new fields.StringField({ initial: "" }),
+        three: new fields.StringField({ initial: "" }),
+        four: new fields.StringField({ initial: "" }),
+        five: new fields.StringField({ initial: "" }),
+        six: new fields.StringField({ initial: "" }),
+        seven: new fields.StringField({ initial: "" }),
+        eight: new fields.StringField({ initial: "" }),
+      }),
+      inventoryNote: new fields.StringField({ initial: "", nullable: true }),
     };
 
     // 3) Merge base + hero

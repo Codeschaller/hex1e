@@ -7,7 +7,26 @@
         "hero": {
             "playerName": "",
             "characterName": "",
+            "notes": "",
+            "inventoryNote": "",
             "level": 1,
+            "wealth": {
+                "infinitis": 0
+            },
+            "scrap": {
+                "value": 0,
+                "bonus": 0
+            },
+            "inventory": {
+                "one": "",
+                "two": "",
+                "three": "",
+                "four": "",
+                "five": "",
+                "six": "",
+                "seven": "",
+                "eight": ""
+            },
             "attributes": {
                 "body": 0,
                 "agility": 0,

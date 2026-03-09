@@ -457,27 +457,22 @@ export const DOGE_ROLL_MACRO = `
 // HEXADOOR 1E – DODGE ROLL
 // ===========================================
 
-// Update macro icon (safe even if macro not found)
 game.macros.getName("Dodge Roll")?.update({
   img: "systems/hex1e/assets/icons/icoDoge.svg"
 });
 
-// Actor selection
 const actor = canvas.tokens.controlled[0]?.actor;
 if (!actor) return ui.notifications.warn("Select a token first.");
 
-// Pull values
 const dodge = actor.system.skills?.dodge?.value ?? 0;
 const bodyMali = actor.system.body?.bodyMali?.agility ?? 0;
 
-// Cover options
 const coverOptions = {
   0: "No Cover (0)",
   25: "Half Cover (+25)",
   50: "Full Cover (+50)"
 };
 
-// Build dialog
 new Dialog({
   title: "Dodge Roll",
   content: \`
@@ -494,6 +489,11 @@ new Dialog({
           .join("")}
       </select>
     </div>
+
+    <div class="form-group" style="margin-top: 10px;">
+      <label>Additional Modifier:</label>
+      <input type="number" id="mod-value" value="0" />
+    </div>
   \`,
   buttons: {
     roll: {
@@ -501,9 +501,10 @@ new Dialog({
       callback: async (html) => {
 
         const cover = Number(html.find("#cover-select").val());
-        const target = dodge - bodyMali + cover;
+        const modValue = Number(html.find("#mod-value").val()) || 0;
 
-        // v13-safe roll execution
+        const target = dodge - bodyMali + cover + modValue;
+
         const roll = await (new Roll("1d100")).evaluate({ async: true });
         const result = roll.total;
 
@@ -517,6 +518,12 @@ new Dialog({
 
         const msg = \`
           <h2>Dodge Roll</h2>
+
+          <p><b>Dodge:</b> \${dodge}</p>
+          <p><b>Body Malus:</b> -\${bodyMali}</p>
+          <p><b>Cover:</b> +\${cover}</p>
+          <p><b>Modifier:</b> +\${modValue}</p>
+
           <p><b>Target:</b> \${target}</p>
           <p><b>Result:</b> \${result}</p>
           <p>\${outcome}</p>
@@ -525,11 +532,12 @@ new Dialog({
         ChatMessage.create({
           speaker: ChatMessage.getSpeaker({ actor }),
           content: msg,
-          rolls: [roll]   // v13 requires explicit roll attachment
+          rolls: [roll]
         });
       }
     }
   },
   default: "roll"
 }).render(true);
+
 `;

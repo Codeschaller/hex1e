@@ -1,9 +1,9 @@
 /**
  * Macro code injected into the Macro entity.
  */
-export const COMPETENCY_ROLL_MACRO = `
+export const SKILL_ROLL_MACRO = `
   // Select icon
-  game.macros.getName("Competency Roll")?.update({
+  game.macros.getName("Skill Roll")?.update({
     img: "systems/hex1e/assets/icons/icoSkill.svg"
   });
 
@@ -26,8 +26,8 @@ export const COMPETENCY_ROLL_MACRO = `
 
   // Build dialog HTML
   let content = \`
-  <p>Select a competency to roll:</p>
-  <select id="competency-select">\`;
+  <p>Select a skill to roll:</p>
+  <select id="skill-select">\`;
 
   for (const opt of options) {
     content += \`<option value="\${opt.key}">\${opt.label}</option>\`;
@@ -35,19 +35,19 @@ export const COMPETENCY_ROLL_MACRO = `
 
   content += \`</select>
   <p>Modifier (add or subtract):</p>
-  <input type="number" id="competency-mod" value="0" />
+  <input type="number" id="skill-mod" value="0" />
   \`;
 
   // Show dialog
   new Dialog({
-    title: "HEXADOOR Competency Roll",
+    title: "Skill Roll",
     content,
     buttons: {
       roll: {
         label: "Roll",
         callback: async (html) => {
-          const key = html.find("#competency-select").val();
-          const mod = Number(html.find("#competency-mod").val()) || 0;
+          const key = html.find("#skill-select").val();
+          const mod = Number(html.find("#skill-mod").val()) || 0;
 
           const base = skills[key].value;
           const skill = base + mod;
@@ -131,7 +131,7 @@ const dialogContent = \`
 \`;
 
 new Dialog({
-  title: "HEXADOOR 1E – Damage Roll",
+  title: "Damage Roll",
   content: dialogContent,
   buttons: {
     roll: {
@@ -294,7 +294,7 @@ let content = \`
 \`;
 
 new Dialog({
-  title: "HEXADOOR Attack",
+  title: "Attack Roll",
   content,
   buttons: {
     roll: {

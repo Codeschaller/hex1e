@@ -1,7 +1,7 @@
 import { HeroDataModel } from "./module/data-models/hero-data.js";
 import { HeroSheet } from "./module/documents/hero-sheet.js";
 import {
-  COMPETENCY_ROLL_MACRO,
+  SKILL_ROLL_MACRO,
   ATTACK_ROLL_MACRO,
   DAMAGE_ROLL_MACRO,
   DOGE_ROLL_MACRO,
@@ -71,20 +71,20 @@ Hooks.once("ready", async function () {
   // =====================================
   // COMPETENCY ROLL MACRO (Hotbar Slot 0)
   // =====================================
-  const COMPETENCY_MACRO_NAME = "Competency Roll";
-  const COMPETENCY_ICON = "systems/hex1e/assets/icons/icoSkill.svg";
+  const SKILL_MACRO_NAME = "Skill Roll";
+  const SKILL_ICON = "systems/hex1e/assets/icons/icoSkill.svg";
 
-  let competencyMacro = game.macros.getName(COMPETENCY_MACRO_NAME);
-  if (!competencyMacro) {
-    competencyMacro = await Macro.create({
-      name: COMPETENCY_MACRO_NAME,
+  let skillMacro = game.macros.getName(SKILL_MACRO_NAME);
+  if (!skillMacro) {
+    skillMacro = await Macro.create({
+      name: SKILL_MACRO_NAME,
       type: "script",
-      img: COMPETENCY_ICON,
+      img: SKILL_ICON,
       scope: "global",
-      command: COMPETENCY_ROLL_MACRO,
+      command: SKILL_ROLL_MACRO,
     });
     // Set permissions when the macro is created
-    await competencyMacro.update({
+    await skillMacro.update({
       ownership: {
         default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER,
       },
@@ -106,7 +106,7 @@ Hooks.once("ready", async function () {
   // HOTBAR ASSIGNMENT
   //==================================
 
-  await game.user.assignHotbarMacro(competencyMacro, 1);
+  await game.user.assignHotbarMacro(skillMacro, 1);
 
   // =====================================
   // ATTACK ROLL MACRO (Hotbar Slot 2)

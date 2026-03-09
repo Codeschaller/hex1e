@@ -314,13 +314,13 @@ input:focus {
    SKILLS
    ============================================================ */
 
-.competency-grid {
+.skill-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px 12px;
 }
 
-.competency-item {
+.skill-item {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   align-items: center;

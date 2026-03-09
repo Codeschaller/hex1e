@@ -79,11 +79,11 @@ export class ActorDataModel extends foundry.abstract.DataModel {
         }),
 
         // -------------------------
-        // GLOBAL BODY MALUS
+        // GLOBAL BODY penalty
         // Applies penalties to attributes
         // when certain body parts are damaged.
         // -------------------------
-        bodyMali: new fields.SchemaField({
+        bodyPenalty: new fields.SchemaField({
           accuracy: new fields.NumberField({ initial: 0 }), // Accuracy penalty
           agility: new fields.NumberField({ initial: 0 }), // Agility penalty
         }),
@@ -270,28 +270,28 @@ export class ActorDataModel extends foundry.abstract.DataModel {
 
         helmet: new fields.SchemaField({
           name: new fields.StringField({ initial: "" }),
-          malus: new fields.NumberField({ initial: 0 }),
+          penalty: new fields.NumberField({ initial: 0 }),
           value: new fields.NumberField({ initial: 0 }),
           properties: new fields.StringField({ initial: "" }),
         }),
 
         vest: new fields.SchemaField({
           name: new fields.StringField({ initial: "" }),
-          malus: new fields.NumberField({ initial: 0 }),
+          penalty: new fields.NumberField({ initial: 0 }),
           value: new fields.NumberField({ initial: 0 }),
           properties: new fields.StringField({ initial: "" }),
         }),
 
         bracers: new fields.SchemaField({
           name: new fields.StringField({ initial: "" }),
-          malus: new fields.NumberField({ initial: 0 }),
+          penalty: new fields.NumberField({ initial: 0 }),
           value: new fields.NumberField({ initial: 0 }),
           properties: new fields.StringField({ initial: "" }),
         }),
 
         pants: new fields.SchemaField({
           name: new fields.StringField({ initial: "" }),
-          malus: new fields.NumberField({ initial: 0 }),
+          penalty: new fields.NumberField({ initial: 0 }),
           value: new fields.NumberField({ initial: 0 }),
           properties: new fields.StringField({ initial: "" }),
         }),

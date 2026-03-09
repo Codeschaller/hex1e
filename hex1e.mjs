@@ -89,6 +89,30 @@ Hooks.once("init", () => {
   Handlebars.registerHelper("add", function (a, b) {
     return (a || 0) + (b || 0);
   });
+
+  // register Handlebars helper for summing armor values and penalties
+
+  Handlebars.registerHelper("sumArmorValues", function (armor) {
+    const slots = ["helmet", "vest", "bracers", "pants"];
+    return slots.reduce((sum, slot) => {
+      return sum + (Number(armor?.[slot]?.value) || 0);
+    }, 0);
+  });
+  // Accuracy Penalties (helmet + bracers)
+  Handlebars.registerHelper("sumArmorAccuracyPenalties", function (armor) {
+    const slots = ["helmet", "bracers"];
+    return slots.reduce((sum, slot) => {
+      return sum + (Number(armor?.[slot]?.penalty) || 0);
+    }, 0);
+  });
+
+  // Movement Penalties (vest + pants)
+  Handlebars.registerHelper("sumArmorMovementPenalties", function (armor) {
+    const slots = ["vest", "pants"];
+    return slots.reduce((sum, slot) => {
+      return sum + (Number(armor?.[slot]?.penalty) || 0);
+    }, 0);
+  });
 });
 
 // ======================================================

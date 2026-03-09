@@ -231,7 +231,7 @@ const melee = actor.system.skills?.melee?.value ?? 0;
 const ranged = actor.system.skills?.ranged?.value ?? 0;
 
 const penaltyAcc = actor.system.armor?.penaltyAccuracyTotal ?? 0;
-const bodyAcc = actor.system.body?.bodyMali?.accuracy ?? 0;
+const bodyAcc = actor.system.body?.bodyPenalty?.accuracy ?? 0;
 
 // Weapons
 const primary = actor.system.weapons?.primary;
@@ -247,7 +247,7 @@ let content = \`
   <p>Melee Skill: <b>\${melee}</b></p>
   <p>Ranged Skill: <b>\${ranged}</b></p>
   <p>Armor Penalty: <b>\${penaltyAcc}</b></p>
-  <p>Body Mali: <b>\${bodyAcc}</b></p>
+  <p>Body Penalty: <b>\${bodyAcc}</b></p>
 
   <div class="form-group">
     <label for="weaponChoice">Choose Weapon:</label>
@@ -359,7 +359,7 @@ new Dialog({
 
               <p><strong>Melee Skill:</strong> \${melee}</p>
               <p><strong>Armor Penalty:</strong> -\${penaltyAcc}</p>
-              <p><strong>Body Mali:</strong> -\${bodyAcc}</p>
+              <p><strong>Body Penalty:</strong> -\${bodyAcc}</p>
               <p><strong>Weapon Accuracy:</strong> +0</p>
               <p><strong>Cover:</strong> -\${cover}</p>
               <p><strong>Bodyzone:</strong> -\${bodyzone}</p>
@@ -446,7 +446,7 @@ new Dialog({
             <p><strong>Ranged Skill:</strong> \${ranged}</p>
             <p><strong>Skill Used:</strong> \${combatSkill}</p>
             <p><strong>Armor Penalty:</strong> -\${penaltyAcc}</p>
-            <p><strong>Body Mali:</strong> -\${bodyAcc}</p>
+            <p><strong>Body Penalty:</strong> -\${bodyAcc}</p>
             <p><strong>Weapon Accuracy:</strong> +\${weaponAcc}</p>
             <p><strong>Cover:</strong> -\${cover}</p>
             <p><strong>Bodyzone:</strong> -\${bodyzone}</p>
@@ -484,7 +484,7 @@ const actor = canvas.tokens.controlled[0]?.actor;
 if (!actor) return ui.notifications.warn("Select a token first.");
 
 const dodge = actor.system.skills?.dodge?.value ?? 0;
-const bodyMali = actor.system.body?.bodyMali?.agility ?? 0;
+const bodyPenalty = actor.system.body?.bodyPenalty?.agility ?? 0;
 
 const coverOptions = {
   0: "No Cover (0)",
@@ -498,7 +498,7 @@ new Dialog({
     <div class="hex1e-dialog">
       <div style="margin-bottom: 10px;">
         <strong>Dodge:</strong> \${dodge}<br>
-        <strong>Body Malus:</strong> \${bodyMali}
+        <strong>Body Penalty:</strong> \${bodyPenalty}
       </div>
 
       <div class="form-group">
@@ -524,7 +524,7 @@ new Dialog({
         const cover = Number(html.find("#cover-select").val());
         const modValue = Number(html.find("#mod-value").val()) || 0;
 
-        const target = dodge - bodyMali + cover + modValue;
+        const target = dodge - bodyPenalty + cover + modValue;
 
         const roll = await (new Roll("1d100")).evaluate({ async: true });
         const result = roll.total;
@@ -541,7 +541,7 @@ new Dialog({
           <h2>Dodge Roll</h2>
 
           <p><b>Dodge:</b> \${dodge}</p>
-          <p><b>Body Malus:</b> -\${bodyMali}</p>
+          <p><b>Body Penalty:</b> -\${bodyPenalty}</p>
           <p><b>Cover:</b> +\${cover}</p>
           <p><b>Modifier:</b> +\${modValue}</p>
 

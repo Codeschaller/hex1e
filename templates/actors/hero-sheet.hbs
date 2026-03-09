@@ -178,13 +178,13 @@ Layout:
           </div>
         </div>
 
-        <!-- BODY MALI -->
+        <!-- BODY Penalty -->
         <div class="body-part">
-          <div class="body-part-title">Body Mali</div>
+          <div class="body-part-title">Body Penalty</div>
 
           <div class="damage-row">
             <label>Accuracy:</label>
-            <input type="number" name="system.body.bodyMali.accuracy"  value="{{add
+            <input type="number" name="system.body.bodyPenalty.accuracy"  value="{{add
               (armPenalty system.body.leftArm.wound system.body.leftArm.destroyed)
               (armPenalty system.body.rightArm.wound system.body.rightArm.destroyed)
            }}" readonly />
@@ -192,7 +192,7 @@ Layout:
 
           <div class="damage-row">
             <label>Agility:</label>
-            <input type="number" name="system.body.bodyMali.agility" value="{{add
+            <input type="number" name="system.body.bodyPenalty.agility" value="{{add
               (legPenalty system.body.leftLeg.wound system.body.leftLeg.destroyed)
               (legPenalty system.body.rightLeg.wound system.body.rightLeg.destroyed)
            }}" readonly />
@@ -800,23 +800,30 @@ Layout:
         ======================= }}
         <div class="equipment-block armor">
           <h2>Armor</h2>
-          <div class="field-line">
-            <label>Total Armor Value:</label>
-            <input type="number" name="system.armor.totalValue" value="{{system.armor.totalValue}}" />
-          </div>
+        <div class="field-line">
+  <label>Total Armor Value:</label>
+  <input type="number"
+         name="system.armor.totalValue"
+         value="{{sumArmorValues system.armor}}"
+         readonly />
+</div>
 
-          <div class="armor-summary">
-            <div class="field-line">
-              <label>Total Accuracy Penalty:</label>
-              <input type="number" name="system.armor.penaltyAccuracyTotal"
-                value="{{system.armor.penaltyAccuracyTotal}}" />
-            </div>
-            <div class="field-line">
-              <label>Total Movement Penalty:</label>
-              <input type="number" name="system.armor.penaltyMovementTotal"
-                value="{{system.armor.penaltyMovementTotal}}" />
-            </div>
-          </div>
+<div class="armor-summary">
+  <div class="field-line">
+    <label>Total Accuracy Penalty:</label>
+    <input type="number"
+           name="system.armor.penaltyAccuracyTotal"
+           value="{{sumArmorAccuracyPenalties system.armor}}" readonly/>
+  </div>
+
+  <div class="field-line">
+    <label>Total Movement Penalty:</label>
+    <input type="number"
+           name="system.armor.penaltyMovementTotal"
+           value="{{sumArmorMovementPenalties system.armor}}" readonly/>
+  </div>
+</div>
+
 
           {{! Helmet }}
           <div class="armor-row armor-helmet">
@@ -826,7 +833,7 @@ Layout:
             </div>
             <div class="field-line">
               <label>Armor Penalty:</label>
-              <input type="number" name="system.armor.helmet.malus" value="{{system.armor.helmet.malus}}" />
+              <input type="number" name="system.armor.helmet.penalty" value="{{system.armor.helmet.penalty}}" />
             </div>
             <div class="field-line">
               <label>Armor Value:</label>
@@ -846,7 +853,7 @@ Layout:
             </div>
             <div class="field-line">
               <label>Armor Penalty:</label>
-              <input type="number" name="system.armor.vest.malus" value="{{system.armor.vest.malus}}" />
+              <input type="number" name="system.armor.vest.penalty" value="{{system.armor.vest.penalty}}" />
             </div>
             <div class="field-line">
               <label>Armor Value:</label>
@@ -866,7 +873,7 @@ Layout:
             </div>
             <div class="field-line">
               <label>Armor Penalty:</label>
-              <input type="number" name="system.armor.bracers.malus" value="{{system.armor.bracers.malus}}" />
+              <input type="number" name="system.armor.bracers.penalty" value="{{system.armor.bracers.penalty}}" />
             </div>
             <div class="field-line">
               <label>Armor Value:</label>
@@ -886,7 +893,7 @@ Layout:
             </div>
             <div class="field-line">
               <label>Armor Penalty:</label>
-              <input type="number" name="system.armor.pants.malus" value="{{system.armor.pants.malus}}" />
+              <input type="number" name="system.armor.pants.penalty" value="{{system.armor.pants.penalty}}" />
             </div>
             <div class="field-line">
               <label>Armor Value:</label>

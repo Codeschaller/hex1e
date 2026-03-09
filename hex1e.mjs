@@ -61,6 +61,34 @@ Hooks.once("init", () => {
     value = Number(value) || 0;
     return Math.round(value / 2);
   });
+  // register Handlebars helper for counting wounds and calculating penalty
+  Handlebars.registerHelper("armPenalty", function (wounds, destroyed) {
+    if (destroyed) return 25;
+
+    let count = 0;
+    for (const key in wounds) {
+      if (wounds[key] === true) count++;
+    }
+
+    return count * 5;
+  });
+  Handlebars.registerHelper("add", function (a, b) {
+    return (a || 0) + (b || 0);
+  });
+  // leg penalty helper
+  Handlebars.registerHelper("legPenalty", function (wounds, destroyed) {
+    if (destroyed) return 25;
+
+    let count = 0;
+    for (const key in wounds) {
+      if (wounds[key] === true) count++;
+    }
+
+    return count * 5;
+  });
+  Handlebars.registerHelper("add", function (a, b) {
+    return (a || 0) + (b || 0);
+  });
 });
 
 // ======================================================

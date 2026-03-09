@@ -26,16 +26,23 @@ export const SKILL_ROLL_MACRO = `
 
   // Build dialog HTML
   let content = \`
-  <p>Select a skill to roll:</p>
-  <select id="skill-select">\`;
+  <div class="hex1e-dialog">
+    <p>Select a skill to roll:</p>
+    <div class="form-group">
+      <label for="skill-select">Skill:</label>
+      <select id="skill-select">\`;
 
   for (const opt of options) {
     content += \`<option value="\${opt.key}">\${opt.label}</option>\`;
   }
 
   content += \`</select>
-  <p>Modifier (add or subtract):</p>
-  <input type="number" id="skill-mod" value="0" />
+    </div>
+    <div class="form-group">
+      <label for="skill-mod">Modifier (add or subtract):</label>
+      <input type="number" id="skill-mod" value="0" />
+    </div>
+  </div>
   \`;
 
   // Show dialog
@@ -103,30 +110,34 @@ const primary = actor.system.weapons?.primary;
 const secondary = actor.system.weapons?.secondary;
 
 const dropdownHTML = \`
-  <h3>Choose Weapon</h3>
-  <select id="weaponChoice">
-    <option value="primary">
-      Primary: \${primary?.name || "None"}
-      (\${primary?.damageDieCount ?? 1}D\${primary?.damageDie || 6} + \${primary?.damageBonus ?? 0})
-    </option>
+  <div class="form-group">
+    <label for="weaponChoice">Choose Weapon:</label>
+    <select id="weaponChoice">
+      <option value="primary">
+        Primary: \${primary?.name || "None"}
+        (\${primary?.damageDieCount ?? 1}D\${primary?.damageDie || 6} + \${primary?.damageBonus ?? 0})
+      </option>
 
-    <option value="secondary">
-      Secondary: \${secondary?.name || "None"}
-      (\${secondary?.damageDieCount ?? 1}D\${secondary?.damageDie || 6} + \${secondary?.damageBonus ?? 0})
-    </option>
+      <option value="secondary">
+        Secondary: \${secondary?.name || "None"}
+        (\${secondary?.damageDieCount ?? 1}D\${secondary?.damageDie || 6} + \${secondary?.damageBonus ?? 0})
+      </option>
 
-    <option value="unarmed">
-      Unarmed Strike (US: \${actor.system.skills?.strength?.us?.value ?? 0})
-    </option>
-  </select>
+      <option value="unarmed">
+        Unarmed Strike (US: \${actor.system.skills?.strength?.us?.value ?? 0})
+      </option>
+    </select>
+  </div>
 \`;
 
 const dialogContent = \`
-  <div style="display:flex; flex-direction:column; gap:12px;">
+  <div class="hex1e-dialog">
     \${dropdownHTML}
 
-    <label><strong>Enemy Armor Value</strong></label>
-    <input id="enemyArmor" type="number" value="0" />
+    <div class="form-group">
+      <label for="enemyArmor">Enemy Armor Value:</label>
+      <input id="enemyArmor" type="number" value="0" />
+    </div>
   </div>
 \`;
 
@@ -229,67 +240,75 @@ const secondary = actor.system.weapons?.secondary;
 // Build dialog
 let content = \`
 
-<h2>Attack</h2>
+<div class="hex1e-dialog">
+  <h2>Attack</h2>
 
-<h3>Base Values</h3>
-<p>Melee Skill: <b>\${melee}</b></p>
-<p>Ranged Skill: <b>\${ranged}</b></p>
-<p>Armor Penalty: <b>\${penaltyAcc}</b></p>
-<p>Body Mali: <b>\${bodyAcc}</b></p>
+  <h3>Base Values</h3>
+  <p>Melee Skill: <b>\${melee}</b></p>
+  <p>Ranged Skill: <b>\${ranged}</b></p>
+  <p>Armor Penalty: <b>\${penaltyAcc}</b></p>
+  <p>Body Mali: <b>\${bodyAcc}</b></p>
 
-<h3>Choose Weapon</h3>
-<select id="weaponChoice">
+  <div class="form-group">
+    <label for="weaponChoice">Choose Weapon:</label>
+    <select id="weaponChoice">
+      <option value="primary">
+        Primary: \${primary?.name || "None"}
+        (Type: \${primary?.type || "?"}, Acc: \${primary?.accuracy ?? 0},
+         \${primary?.damageDieCount ?? 1}D\${primary?.damageDie || 6} + \${primary?.damageBonus ?? 0})
+      </option>
 
-  <option value="primary">
-    Primary: \${primary?.name || "None"}
-    (Type: \${primary?.type || "?"}, Acc: \${primary?.accuracy ?? 0},
-     \${primary?.damageDieCount ?? 1}D\${primary?.damageDie || 6} + \${primary?.damageBonus ?? 0})
-  </option>
+      <option value="secondary">
+        Secondary: \${secondary?.name || "None"}
+        (Type: \${secondary?.type || "?"}, Acc: \${secondary?.accuracy ?? 0},
+         \${secondary?.damageDieCount ?? 1}D\${secondary?.damageDie || 6} + \${secondary?.damageBonus ?? 0})
+      </option>
 
-  <option value="secondary">
-    Secondary: \${secondary?.name || "None"}
-    (Type: \${secondary?.type || "?"}, Acc: \${secondary?.accuracy ?? 0},
-     \${secondary?.damageDieCount ?? 1}D\${secondary?.damageDie || 6} + \${secondary?.damageBonus ?? 0})
-  </option>
+      <option value="unarmed">
+        Unarmed Strike
+        (Type: melee, Acc: 0,
+         1D6 + \${actor.system.skills?.strength?.us?.value ?? 0})
+      </option>
+    </select>
+  </div>
 
-  <option value="unarmed">
-    Unarmed Strike
-    (Type: melee, Acc: 0,
-     1D6 + \${actor.system.skills?.strength?.us?.value ?? 0})
-  </option>
+  <p><strong>Range Types:</strong></p>
+  <ul>
+    <li>melee → 0 m</li>
+    <li>close → 5–10 m</li>
+    <li>middle → 10–25 m</li>
+    <li>wide → 25–35 m</li>
+    <li>edge → 35–60 m</li>
+  </ul>
 
-</select>
+  <h3>Situational Modifiers</h3>
 
-<p><strong>Range Types:</strong></p>
-<ul>
-  <li>melee → 0 m</li>
-  <li>close → 5–10 m</li>
-  <li>middle → 10–25 m</li>
-  <li>wide → 25–35 m</li>
-  <li>edge → 35–60 m</li>
-</ul>
+  <div class="form-group">
+    <label for="cover">Cover Modifier:</label>
+    <select id="cover">
+      <option value="0">No Cover (0)</option>
+      <option value="10">Half Cover (-10)</option>
+      <option value="25">Full Cover (-25)</option>
+    </select>
+  </div>
 
-<h3>Situational Modifiers</h3>
+  <div class="form-group">
+    <label for="bodyzone">Bodyzone Modifier:</label>
+    <select id="bodyzone">
+      <option value="0">Body (0)</option>
+      <option value="25">Head (-25)</option>
+      <option value="10">Right Arm (-10)</option>
+      <option value="10">Left Arm (-10)</option>
+      <option value="10">Right Leg (-10)</option>
+      <option value="10">Left Leg (-10)</option>
+    </select>
+  </div>
 
-<p>Cover Modifier:</p>
-<select id="cover">
-  <option value="0">No Cover (0)</option>
-  <option value="10">Half Cover (-10)</option>
-  <option value="25">Full Cover (-25)</option>
-</select>
-
-<p>Bodyzone Modifier:</p>
-<select id="bodyzone">
-  <option value="0">Body (0)</option>
-  <option value="25">Head (-25)</option>
-  <option value="10">Right Arm (-10)</option>
-  <option value="10">Left Arm (-10)</option>
-  <option value="10">Right Leg (-10)</option>
-  <option value="10">Left Leg (-10)</option>
-</select>
-
-<p>Additional Modifier:</p>
-<input type="number" id="modifier" value="0" />
+  <div class="form-group">
+    <label for="modifier">Additional Modifier:</label>
+    <input type="number" id="modifier" value="0" />
+  </div>
+</div>
 
 \`;
 
@@ -476,23 +495,25 @@ const coverOptions = {
 new Dialog({
   title: "Dodge Roll",
   content: \`
-    <div style="margin-bottom: 10px;">
-      <strong>Dodge:</strong> \${dodge}<br>
-      <strong>Body Malus:</strong> \${bodyMali}
-    </div>
+    <div class="hex1e-dialog">
+      <div style="margin-bottom: 10px;">
+        <strong>Dodge:</strong> \${dodge}<br>
+        <strong>Body Malus:</strong> \${bodyMali}
+      </div>
 
-    <div class="form-group">
-      <label>Cover Type:</label>
-      <select id="cover-select">
-        \${Object.entries(coverOptions)
-          .map(([value, label]) => \`<option value="\${value}">\${label}</option>\`)
-          .join("")}
-      </select>
-    </div>
+      <div class="form-group">
+        <label for="cover-select">Cover Type:</label>
+        <select id="cover-select">
+          \${Object.entries(coverOptions)
+            .map(([value, label]) => \`<option value="\${value}">\${label}</option>\`)
+            .join("")}
+        </select>
+      </div>
 
-    <div class="form-group" style="margin-top: 10px;">
-      <label>Additional Modifier:</label>
-      <input type="number" id="mod-value" value="0" />
+      <div class="form-group" style="margin-top: 10px;">
+        <label for="mod-value">Additional Modifier:</label>
+        <input type="number" id="mod-value" value="0" />
+      </div>
     </div>
   \`,
   buttons: {

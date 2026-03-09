@@ -184,12 +184,18 @@ Layout:
 
           <div class="damage-row">
             <label>Accuracy:</label>
-            <input type="number" name="system.body.bodyMali.accuracy" value="{{system.body.bodyMali.accuracy}}" />
+            <input type="number" name="system.body.bodyMali.accuracy"  value="{{add
+              (armPenalty system.body.leftArm.wound system.body.leftArm.destroyed)
+              (armPenalty system.body.rightArm.wound system.body.rightArm.destroyed)
+           }}" readonly />
           </div>
 
           <div class="damage-row">
             <label>Agility:</label>
-            <input type="number" name="system.body.bodyMali.agility" value="{{system.body.bodyMali.agility}}" />
+            <input type="number" name="system.body.bodyMali.agility" value="{{add
+              (legPenalty system.body.leftLeg.wound system.body.leftLeg.destroyed)
+              (legPenalty system.body.rightLeg.wound system.body.rightLeg.destroyed)
+           }}" readonly />
           </div>
         </div>
 

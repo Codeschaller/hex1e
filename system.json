@@ -3,10 +3,11 @@
   "type": "system",
   "title": "HEXADOOR 1E",
   "description": "A custom tabletop RPG system created by CJYardbanger.",
-  "version": "0.0.1",
+  "version": "v0.1.0",
+  "notes": "<p>Complete initial system release with hero character sheets, combat mechanics, 16 skills, body damage tracking, inventory system, and dual weapon/armor configuration.</p>",
   "compatibility": {
     "minimum": "13",
-    "verified": "13"
+    "verified": "13.6"
   },
   "manifest": "system.json",
   "download": "https://example.com/hex1e.zip",

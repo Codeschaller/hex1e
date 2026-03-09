@@ -66,13 +66,13 @@ Layout:
         <label>Player Name</label>
         <input type="text" name="system.playerName" value="{{system.playerName}}" />
       </div>
-   <div class="form-group">
+      <div class="form-group">
         <label>Level</label>
         <input type="number" name="system.level" value="{{system.level}}" min="1" />
       </div>
 
 
-    
+
 
 
 
@@ -86,7 +86,7 @@ Layout:
       <div class="movement-row row-top">
         <div class="field">
           <label>Max</label>
-          <input type="number" name="system.movement.max" value="{{system.movement.max}}" min="0" />
+          <input type="number" name="system.movement.max" value="{{system.movement.max}}" min="0" readonly/>
         </div>
 
         <span class="operator">−</span>
@@ -111,61 +111,43 @@ Layout:
           <input type="number" name="system.movement.hexagons" value="{{system.movement.hexagons}}" min="0" />
         </div>
       </div>
-<h2>Health</h2>
-        <div class="form-group">
-  
+      <h2>Health</h2>
+      <div class="form-group">
 
-  <div class="health-values">
-    <input
-      type="number"
-      name="system.health.value"
-      value="{{system.health.value}}"
-      min="0"
-    />
 
-    <span class="separator">/</span>
+        <div class="health-values">
+          <input type="number" name="system.health.value" value="{{system.health.value}}" min="0" />
 
-    <input
-      type="number"
-      name="system.health.max"
-      value="{{system.health.max}}"
-    />
+          <span class="separator">/</span>
 
-    <span class="separator">(</span>
+          <input
+  type="number"
+  name="system.health.max"
+  value="{{halfRound system.attributes.body}}"
+  readonly
+/>
 
-    <input
-      type="number"
-      name="system.health.temp"
-      value="{{system.health.temp}}"
-      min="0"
-      class="temp-health"
-    />
+          <span class="separator">(</span>
 
-    <span class="separator">)</span>
-  </div>
-</div>
-<div class="form-group">
-  <div class="health-values">
-  
-  <label>Reparable</label>
-  <input
-    type="checkbox"
-    name="system.health.reparable"
-    {{checked system.health.reparable}}
-  />
+          <input type="number" name="system.health.temp" value="{{system.health.temp}}" min="0" class="temp-health" />
 
-  <label>Healable</label>
-  <input
-    type="checkbox"
-    name="system.health.healable"
-    {{checked system.health.healable}}
-  />
-</div>
-</div>
+          <span class="separator">)</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="health-values">
+
+          <label>Reparable</label>
+          <input type="checkbox" name="system.health.reparable" {{checked system.health.reparable}} />
+
+          <label>Healable</label>
+          <input type="checkbox" name="system.health.healable" {{checked system.health.healable}} />
+        </div>
+      </div>
 
     </div>
 
-    
+
 
 
 
@@ -330,8 +312,8 @@ Layout:
     </div>
 
     <div class="attribute">
-      <label>Tech</label>
-      <input type="number" name="system.attributes.tech" value="{{system.attributes.tech}}" />
+      <label>Technique</label>
+      <input type="number" name="system.attributes.technique" value="{{system.attributes.technique}}" />
     </div>
 
     <div class="attribute">
@@ -370,82 +352,89 @@ Layout:
           <div class="competency-item">
             <input type="checkbox" name="system.skills.strength.checked" {{checked system.skills.strength.checked}} />
             <label>Strength (Body)</label>
-            <input type="number" name="system.skills.strength.value" value="{{system.skills.strength.value}}" min="0"
-              max="100" />
-            <span class="competency-item">/20 =
-              <input type="number" name="system.skills.strength.us.value" value="{{system.skills.strength.us.value}}"
-                min="0" max="100" />US</span>
+            <input type="number" name="system.skills.strength.value"
+              value="{{skillValue system.attributes.body system.skills.strength.checked}}" min="0" max="100" readonly />
+            <span class="competency-item">US
+              <input type="number" name="system.skills.strength.us.value" value="{{divideRoundHalfUp system.skills.strength.value 20}}"
+                min="0" max="100" readonly /></span>
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.endurance.checked" {{checked system.skills.endurance.checked}} />
             <label>Endurance (Body)</label>
-            <input type="number" name="system.skills.endurance.value" value="{{system.skills.endurance.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.endurance.value"
+              value="{{skillValue system.attributes.body system.skills.endurance.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.intimidation.checked" {{checked
               system.skills.intimidation.checked}} />
             <label>Intimidation (Body)</label>
-            <input type="number" name="system.skills.intimidation.value" value="{{system.skills.intimidation.value}}"
-              min="0" max="100" />
+            <input type="number" name="system.skills.intimidation.value"
+              value="{{skillValue system.attributes.body system.skills.intimidation.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.melee.checked" {{checked system.skills.melee.checked}} />
             <label>Melee Combat (Body | Agility)</label>
-            <input type="number" name="system.skills.melee.value" value="{{system.skills.melee.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.melee.value"
+              value="{{meleeValue system.attributes.body system.attributes.agility system.skills.melee.checked}}" min="0" max="100" readonly />
           </div>
 
           {{! AGILITY }}
           <div class="competency-item">
             <input type="checkbox" name="system.skills.dodge.checked" {{checked system.skills.dodge.checked}} />
             <label>Dodge (Agility)</label>
-            <input type="number" name="system.skills.dodge.value" value="{{system.skills.dodge.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.dodge.value"
+              value="{{skillValue system.attributes.agility system.skills.dodge.checked}}" min="0" max="100" readonly />
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.stealth.checked" {{checked system.skills.stealth.checked}} />
             <label>Stealth (Agility)</label>
-            <input type="number" name="system.skills.stealth.value" value="{{system.skills.stealth.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.stealth.value"
+              value="{{skillValue system.attributes.agility system.skills.stealth.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           {{! ACCURACY }}
           <div class="competency-item">
             <input type="checkbox" name="system.skills.ranged.checked" {{checked system.skills.ranged.checked}} />
             <label>Ranged Combat (Accuracy)</label>
-            <input type="number" name="system.skills.ranged.value" value="{{system.skills.ranged.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.ranged.value"
+              value="{{skillValue system.attributes.accuracy system.skills.ranged.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.investigation.checked" {{checked
               system.skills.investigation.checked}} />
             <label>Investigation (Accuracy)</label>
-            <input type="number" name="system.skills.investigation.value" value="{{system.skills.investigation.value}}"
-              min="0" max="100" />
+            <input type="number" name="system.skills.investigation.value"
+              value="{{skillValue system.attributes.accuracy system.skills.investigation.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           {{! KNOWLEDGE }}
           <div class="competency-item">
             <input type="checkbox" name="system.skills.medicine.checked" {{checked system.skills.medicine.checked}} />
             <label>Medicine (Knowledge)</label>
-            <input type="number" name="system.skills.medicine.value" value="{{system.skills.medicine.value}}" min="0"
-              max="100" />
-            <span class="competency-item">/20 =
-              <input type="number" name="system.skills.medicine.m.value" value="{{system.skills.medicine.m.value}}"
-                min="0" max="100" />M</span>
+            <input type="number" name="system.skills.medicine.value"
+              value="{{skillValue system.attributes.knowledge system.skills.medicine.checked}}" min="0" max="100"
+              readonly />
+            <span class="competency-item">M
+              <input type="number" name="system.skills.medicine.m.value" value="{{divideRoundHalfUp system.skills.medicine.value 20}}"
+                min="0" max="100" readonly /></span>
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.survival.checked" {{checked system.skills.survival.checked}} />
             <label>Survival (Knowledge)</label>
-            <input type="number" name="system.skills.survival.value" value="{{system.skills.survival.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.survival.value"
+              value="{{skillValue system.attributes.knowledge system.skills.survival.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           {{! TECHNIQUE }}
@@ -454,50 +443,56 @@ Layout:
               system.skills.weaponhandling.checked}} />
             <label>Weapon Handling (Technique)</label>
             <input type="number" name="system.skills.weaponhandling.value"
-              value="{{system.skills.weaponhandling.value}}" min="0" max="100" />
-            <span class="competency-item">/20 =
+              value="{{skillValue system.attributes.technique system.skills.weaponhandling.checked}}" min="0" max="100"
+              readonly />
+            <span class="competency-item">WH
               <input type="number" name="system.skills.weaponhandling.wh.value"
-                value="{{system.skills.weaponhandling.wh.value}}" min="0" max="100" />WH</span>
+                value="{{divideRoundHalfUp system.skills.weaponhandling.value 20}}" min="0" max="100" readonly /></span>
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.tinkering.checked" {{checked system.skills.tinkering.checked}} />
             <label>Tinkering (Technique)</label>
-            <input type="number" name="system.skills.tinkering.value" value="{{system.skills.tinkering.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.tinkering.value"
+              value="{{skillValue system.attributes.technique system.skills.tinkering.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.repair.checked" {{checked system.skills.repair.checked}} />
             <label>Repair (Technique)</label>
-            <input type="number" name="system.skills.repair.value" value="{{system.skills.repair.value}}" min="0"
-              max="100" />
-            <span class="competency-item">/20 =
-              <input type="number" name="system.skills.repair.r.value" value="{{system.skills.repair.r.value}}" min="0"
-                max="100" />R</span>
+            <input type="number" name="system.skills.repair.value"
+              value="{{skillValue system.attributes.technique system.skills.repair.checked}}" min="0" max="100"
+              readonly />
+            <span class="competency-item">R
+              <input type="number" name="system.skills.repair.r.value" value="{{divideRoundHalfUp system.skills.repair.value 20}}" min="0"
+                max="100" readonly /></span>
           </div>
 
           {{! SOCIAL }}
           <div class="competency-item">
             <input type="checkbox" name="system.skills.eloquence.checked" {{checked system.skills.eloquence.checked}} />
             <label>Eloquence (Social)</label>
-            <input type="number" name="system.skills.eloquence.value" value="{{system.skills.eloquence.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.eloquence.value"
+              value="{{skillValue system.attributes.social system.skills.eloquence.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.performance.checked" {{checked
               system.skills.performance.checked}} />
             <label>Performance (Social)</label>
-            <input type="number" name="system.skills.performance.value" value="{{system.skills.performance.value}}"
-              min="0" max="100" />
+            <input type="number" name="system.skills.performance.value"
+              value="{{skillValue system.attributes.social system.skills.performance.checked}}" min="0" max="100"
+              readonly />
           </div>
 
           <div class="competency-item">
             <input type="checkbox" name="system.skills.empathy.checked" {{checked system.skills.empathy.checked}} />
             <label>Empathy (Social)</label>
-            <input type="number" name="system.skills.empathy.value" value="{{system.skills.empathy.value}}" min="0"
-              max="100" />
+            <input type="number" name="system.skills.empathy.value"
+              value="{{skillValue system.attributes.social system.skills.empathy.checked}}" min="0" max="100"
+              readonly />
           </div>
 
         </div>
@@ -607,8 +602,9 @@ Layout:
 
             <div class="field-line">
               <label>Damage Type:</label>
-              <input type="text" name="system.weapons.primary.damageType" value="{{system.weapons.primary.damageType}}" />
-            </div>  
+              <input type="text" name="system.weapons.primary.damageType"
+                value="{{system.weapons.primary.damageType}}" />
+            </div>
 
             <div class="field-line">
               <label>Properties:</label>
@@ -669,7 +665,8 @@ Layout:
 
             <div class="field-line">
               <label>Damage Type:</label>
-              <input type="text" name="system.weapons.secondary.damageType" value="{{system.weapons.secondary.damageType}}" />
+              <input type="text" name="system.weapons.secondary.damageType"
+                value="{{system.weapons.secondary.damageType}}" />
             </div>
 
             <div class="field-line">
@@ -908,94 +905,79 @@ Layout:
     TAB: EQUIPMENT
     =========================== }}
     <div class="tab" data-group="primary-tabs" data-tab="inventory">
-    <div class="row-two-fields">
+      <div class="row-two-fields">
 
-  <div class="form-group">
-    <label>Wealth:</label>
-    <input
-      type="number"
-      name="system.wealth.infinitis"
-      value="{{system.wealth.infinitis}}"
-      placeholder="Infinitis"
-    />
-  </div>
+        <div class="form-group">
+          <label>Wealth:</label>
+          <input type="number" name="system.wealth.infinitis" value="{{system.wealth.infinitis}}"
+            placeholder="Infinitis" />
+        </div>
 
-  <div class="form-group">
-    <label>Scrap: (max 10)</label>
-    <div class="scrap-row">
-      <input
-        type="number"
-        name="system.scrap.value"
-        value="{{system.scrap.value}}"
-        min="0"
-        max="10"
-      />
-      <span>(+</span>
-      <input
-        type="number"
-        name="system.scrap.bonus"
-        value="{{system.scrap.bonus}}"
-        class="scrap-bonus"
-      />
-      <span>)</span>
-    </div>
-  </div>
+        <div class="form-group">
+          <label>Scrap: (max 10)</label>
+          <div class="scrap-row">
+            <input type="number" name="system.scrap.value" value="{{system.scrap.value}}" min="0" max="10" />
+            <span>(+</span>
+            <input type="number" name="system.scrap.bonus" value="{{system.scrap.bonus}}" class="scrap-bonus" />
+            <span>)</span>
+          </div>
+        </div>
 
-</div>
+      </div>
 
 
-<div class="panel-block">
-  <h3>Inventory:</h3>
+      <div class="panel-block">
+        <h3>Inventory:</h3>
 
-  <div class="inventory-grid">
+        <div class="inventory-grid">
 
-    <div class="inventory-row">
-      <span class="inv-number">1:</span>
-      <input type="text" name="system.inventory.one" value="{{system.inventory.one}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">1:</span>
+            <input type="text" name="system.inventory.one" value="{{system.inventory.one}}" />
+          </div>
 
-    <div class="inventory-row">
-      <span class="inv-number">2:</span>
-      <input type="text" name="system.inventory.two" value="{{system.inventory.two}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">2:</span>
+            <input type="text" name="system.inventory.two" value="{{system.inventory.two}}" />
+          </div>
 
-    <div class="inventory-row">
-      <span class="inv-number">3:</span>
-      <input type="text" name="system.inventory.three" value="{{system.inventory.three}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">3:</span>
+            <input type="text" name="system.inventory.three" value="{{system.inventory.three}}" />
+          </div>
 
-    <div class="inventory-row">
-      <span class="inv-number">4:</span>
-      <input type="text" name="system.inventory.four" value="{{system.inventory.four}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">4:</span>
+            <input type="text" name="system.inventory.four" value="{{system.inventory.four}}" />
+          </div>
 
-    <div class="inventory-row">
-      <span class="inv-number">5:</span>
-      <input type="text" name="system.inventory.five" value="{{system.inventory.five}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">5:</span>
+            <input type="text" name="system.inventory.five" value="{{system.inventory.five}}" />
+          </div>
 
-    <div class="inventory-row">
-      <span class="inv-number">6:</span>
-      <input type="text" name="system.inventory.six" value="{{system.inventory.six}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">6:</span>
+            <input type="text" name="system.inventory.six" value="{{system.inventory.six}}" />
+          </div>
 
-    <div class="inventory-row">
-      <span class="inv-number">7:</span>
-      <input type="text" name="system.inventory.seven" value="{{system.inventory.seven}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">7:</span>
+            <input type="text" name="system.inventory.seven" value="{{system.inventory.seven}}" />
+          </div>
 
-    <div class="inventory-row">
-      <span class="inv-number">8:</span>
-      <input type="text" name="system.inventory.eight" value="{{system.inventory.eight}}" />
-    </div>
+          <div class="inventory-row">
+            <span class="inv-number">8:</span>
+            <input type="text" name="system.inventory.eight" value="{{system.inventory.eight}}" />
+          </div>
 
-  </div>
-  <div class="panel-block">
-  <label>Inventory Note:</label>
-  <textarea name="system.inventoryNote" rows="6">{{system.inventoryNote}}</textarea>
-</div>
+        </div>
+        <div class="panel-block">
+          <label>Inventory Note:</label>
+          <textarea name="system.inventoryNote" rows="6">{{system.inventoryNote}}</textarea>
+        </div>
 
-</div>
+      </div>
 
 
 
@@ -1006,77 +988,50 @@ Layout:
     =========================== }}
 
     <div class="tab" data-group="primary-tabs" data-tab="characterinfo">
-     <div class="grid-3col">
+      <div class="grid-3col">
 
-  <div class="form-group">
-    <label>Armor Types</label>
-    <input
-      type="text"
-      name="system.gear.armorTypes"
-      value="{{system.gear.armorTypes}}"
-    />
-  </div>
+        <div class="form-group">
+          <label>Armor Types</label>
+          <input type="text" name="system.gear.armorTypes" value="{{system.gear.armorTypes}}" />
+        </div>
 
-  <div class="form-group">
-    <label>Race</label>
-    <input
-      type="text"
-      name="system.identity.race"
-      value="{{system.identity.race}}"
-    />
-  </div>
-<div class="form-group">
-    <label>Sex</label>
-    <input
-      type="text"
-      name="system.identity.sex"
-      value="{{system.identity.sex}}"
-    />
-  </div>
-  
-
-  
-
-  <div class="form-group">
-    <label>Weapon Types</label>
-    <input
-      type="text"
-      name="system.gear.weaponTypes"
-      value="{{system.gear.weaponTypes}}"
-    />
-  </div>
-
-  <div class="form-group">
-    <label>Class</label>
-    <input
-      type="text"
-      name="system.identity.class"
-      value="{{system.identity.class}}"
-    />
-  </div>
-
-  <div class="form-group">
-    <label>Playertyp</label>
-    <input
-      type="text"
-      name="system.identity.playertyp"
-      value="{{system.identity.playertyp}}"
-    />
-  </div>
-
-  
-
-</div>
+        <div class="form-group">
+          <label>Race</label>
+          <input type="text" name="system.identity.race" value="{{system.identity.race}}" />
+        </div>
+        <div class="form-group">
+          <label>Sex</label>
+          <input type="text" name="system.identity.sex" value="{{system.identity.sex}}" />
+        </div>
 
 
-  <label>Character Note</label>
-  <textarea
-    name="system.identity.note"
-    rows="16"
-    placeholder="Character Note..."
-  >{{system.identity.note}}</textarea>
 
-   
+
+        <div class="form-group">
+          <label>Weapon Types</label>
+          <input type="text" name="system.gear.weaponTypes" value="{{system.gear.weaponTypes}}" />
+        </div>
+
+        <div class="form-group">
+          <label>Class</label>
+          <input type="text" name="system.identity.class" value="{{system.identity.class}}" />
+        </div>
+
+        <div class="form-group">
+          <label>Playertyp</label>
+          <input type="text" name="system.identity.playertyp" value="{{system.identity.playertyp}}" />
+        </div>
+
+
+
+      </div>
+
+
+      <label>Character Note</label>
+      <textarea name="system.identity.note" rows="16"
+        placeholder="Character Note...">{{system.identity.note}}</textarea>
+
+
     </div>
     </div>
 

@@ -41,7 +41,7 @@ export class ActorDataModel extends foundry.abstract.DataModel {
         sex: new fields.StringField({ initial: "" }),
       }),
       movement: new fields.SchemaField({
-        max: new fields.NumberField({ initial: 0, min: 0 }),
+        max: new fields.NumberField({ initial: 15, min: 0 }),
         armorPenalty: new fields.NumberField({ initial: 0 }),
         meters: new fields.NumberField({ initial: 0, min: 0 }),
         hexagons: new fields.NumberField({ initial: 0, min: 0 }),
@@ -57,7 +57,7 @@ export class ActorDataModel extends foundry.abstract.DataModel {
         agility: new fields.NumberField({ initial: 0, integer: true }), // Speed, reflexes
         accuracy: new fields.NumberField({ initial: 0, integer: true }), // Precision, ranged ability
         knowledge: new fields.NumberField({ initial: 0, integer: true }), // Intelligence, medicine, science
-        tech: new fields.NumberField({ initial: 0, integer: true }), // Engineering, repair, tinkering
+        technique: new fields.NumberField({ initial: 0, integer: true }), // Engineering, repair, tinkering
         social: new fields.NumberField({ initial: 0, integer: true }), // Charisma, empathy, persuasion
       }),
 

@@ -21,6 +21,46 @@ Hooks.once("init", () => {
   Actors.registerSheet("hex1e", ActorSheet, {
     types: ["enemy"],
   });
+  // register Handlebars helpers for skill value calculation
+  Handlebars.registerHelper("skillValue", function (base, checked) {
+    return checked ? Number(base) + 5 : Number(base);
+  });
+  // register Handlebars helper for max value calculation (Melee Attack)
+  Handlebars.registerHelper("meleeValue", function (body, agility, checked) {
+    const base = Math.max(Number(body), Number(agility));
+    return checked ? base + 5 : base;
+  });
+  // register Handlebars helper for Competency div 20 for US,WH,R,M
+  Handlebars.registerHelper("divideRoundHalfUp", function (value, divisor) {
+    value = Number(value) || 0;
+    divisor = Number(divisor) || 1;
+
+    const raw = value / divisor;
+
+    // Step 1: round to nearest 0.5
+    let rounded = Math.round(raw * 2) / 2;
+
+    // Step 2: if rounded ends in .5, decide up or down
+    if (rounded % 1 === 0.5) {
+      const lower = Math.floor(rounded);
+      const upper = Math.ceil(rounded);
+
+      // If raw is closer to lower → use lower
+      // If raw is closer to upper → use upper
+      if (raw - lower < upper - raw) {
+        rounded = lower;
+      } else {
+        rounded = upper;
+      }
+    }
+
+    return rounded;
+  });
+  // register Handlebars helper for half rounding (Health)
+  Handlebars.registerHelper("halfRound", function (value) {
+    value = Number(value) || 0;
+    return Math.round(value / 2);
+  });
 });
 
 // ======================================================
@@ -50,6 +90,21 @@ Hooks.once("ready", async function () {
       },
     });
   }
+
+  //==================================
+  // ACTOR SETTINGS
+  //==================================
+
+  Hooks.on("preCreateActor", (actor, data) => {
+    if (data.type === "hero") {
+      data.prototypeToken = data.prototypeToken || {};
+      data.prototypeToken.actorLink = true;
+    }
+  });
+
+  //==================================
+  // HOTBAR ASSIGNMENT
+  //==================================
 
   await game.user.assignHotbarMacro(competencyMacro, 1);
 

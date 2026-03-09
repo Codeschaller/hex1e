@@ -146,7 +146,7 @@ export class ActorDataModel extends foundry.abstract.DataModel {
           }),
         }),
 
-        endurance: new foundry.data.fields.SchemaField({
+        resilience: new foundry.data.fields.SchemaField({
           checked: new foundry.data.fields.BooleanField({ initial: false }),
           value: new foundry.data.fields.NumberField({ initial: 0 }),
         }),

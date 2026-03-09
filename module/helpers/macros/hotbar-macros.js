@@ -138,6 +138,11 @@ const dialogContent = \`
       <label for="enemyArmor">Enemy Armor Value:</label>
       <input id="enemyArmor" type="number" value="0" />
     </div>
+
+    <div class="form-group" style="margin-top: 10px;">
+      <label for="critCheck">Critical Hit:</label>
+      <input id="critCheck" type="checkbox" />
+    </div>
   </div>
 \`;
 
@@ -151,6 +156,7 @@ new Dialog({
 
         const choice = html.find("#weaponChoice").val();
         const enemyArmor = Number(html.find("#enemyArmor").val()) || 0;
+        const isCrit = html.find("#critCheck")[0].checked;
 
         const weapon = choice === "primary" ? primary : secondary;
 
@@ -182,13 +188,19 @@ new Dialog({
           return ui.notifications.warn(\`No \${choice} weapon equipped.\`);
         }
 
-        const diceCount = weapon.damageDieCount ?? 1;
+        // ===============================
+        // WEAPON DAMAGE
+        // ===============================
+        let diceCount = weapon.damageDieCount ?? 1;
         const dieType = \`d\${weapon.damageDie || 6}\`;
         const bonus = weapon.damageBonus ?? 0;
 
         if (diceCount <= 0) {
           return ui.notifications.warn(\`\${weapon.name} has no damage dice set.\`);
         }
+
+        // Double dice on crit
+        if (isCrit) diceCount *= 2;
 
         const formula = \`\${diceCount}\${dieType} + \${bonus} - \${enemyArmor}\`;
         const roll = await new Roll(formula).roll({ async: true });
@@ -197,7 +209,7 @@ new Dialog({
           speaker: ChatMessage.getSpeaker({ actor }),
           flavor: \`
             <h2>\${weapon.name} – Damage Roll</h2>
-            <p><strong>Dice:</strong> \${diceCount}\${dieType}</p>
+            <p><strong>Dice:</strong> \${diceCount}\${dieType} \${isCrit ? "(CRIT)" : ""}</p>
             <p><strong>Bonus:</strong> +\${bonus}</p>
             <p><strong>Enemy Armor:</strong> -\${enemyArmor}</p>
             <p><strong>Type:</strong> \${weapon.type}</p>
@@ -209,6 +221,7 @@ new Dialog({
     cancel: { label: "Cancel" }
   }
 }).render(true);
+
 `;
 
 export const ATTACK_ROLL_MACRO = `// ===============================

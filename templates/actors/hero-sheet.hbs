@@ -86,14 +86,14 @@ Layout:
       <div class="movement-row row-top">
         <div class="field">
           <label>Max</label>
-          <input type="number" name="system.movement.max" value="{{system.movement.max}}" min="0" readonly/>
+          <input type="number" name="system.movement.max" value="{{system.movement.max}}" min="0"/>
         </div>
 
         <span class="operator">−</span>
 
         <div class="field">
           <label>Armor Penalty</label>
-          <input type="number" name="system.movement.armorPenalty" value="{{system.movement.armorPenalty}}" />
+          <input type="number" name="system.movement.armorPenalty" value="{{sumArmorMovementPenalties system.armor}}" readonly/>
         </div>
 
         <span class="operator">=</span>
@@ -103,12 +103,12 @@ Layout:
       <div class="movement-row row-bottom">
         <div class="field">
           <label>Meter</label>
-          <input type="number" name="system.movement.meters" value="{{system.movement.meters}}" min="0" />
+          <input type="number" name="system.movement.meters" value="{{subtract system.movement.max (sumArmorMovementPenalties system.armor)}}" min="0" readonly />
         </div>
 
         <div class="field">
           <label>Hexagons</label>
-          <input type="number" name="system.movement.hexagons" value="{{system.movement.hexagons}}" min="0" />
+          <input type="number" name="system.movement.hexagons" value="{{divideRoundHalfUp (subtract system.movement.max (sumArmorMovementPenalties system.armor)) 2.5}}" min="0" readonly />
         </div>
       </div>
       <h2>Health</h2>

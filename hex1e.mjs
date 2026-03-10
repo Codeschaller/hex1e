@@ -90,6 +90,11 @@ Hooks.once("init", () => {
     return (a || 0) + (b || 0);
   });
 
+  // register Handlebars helper for subtraction
+  Handlebars.registerHelper("subtract", function (a, b) {
+    return (a || 0) - (b || 0);
+  });
+
   // register Handlebars helper for summing armor values and penalties
 
   Handlebars.registerHelper("sumArmorValues", function (armor) {
